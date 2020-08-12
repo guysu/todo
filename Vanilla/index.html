@@ -4,14 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
-    <script src="index.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h1>Welcome to the TODO List!</h1>
-    <span>Please enter a new tesk: </span>
-    <input type="text" id="newTask">
-    <button onclick="handleAddTask()">Save</button>
-    <div id="allTasks"></div>
+    <div class="add_task">
+        Please enter a new tesk:
+        <input type="text" class="add_task_input">
+        <button class="add_task_btn">Add</button>
+    </div>
+    <div class="tasks_container">
+        <div class="unfinished_tasks">
+            
+            <!--
+                <div class="single_task" id="task_%id%">
+                <input type="checkbox" id="task_status"/>
+                <span class="task_title">%title%</span>
+                <button class="edit_btn">Edit</button>
+                <button class="delete_btn">Delete</button>
+                </div>
+            -->
+            
+        </div>
+        <div class="finished_tasks"></div>
+    </div>
+
+    <script src="index.js"></script>
+
 </body>
 </html>
