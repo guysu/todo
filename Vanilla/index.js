@@ -12,7 +12,13 @@ function SingleTask(id, title) {
 document.querySelector('.add_task_btn').addEventListener('click', function() {
     let html = '<div class="single_task" id="task_%id%"><input type="checkbox" id="task_status_%id%"/> <span class="task_title_%id%">%title%</span> \
     <button class="edit_btn" id="edit_%id%">Edit</button> <button class="delete_btn" id="delete_%id%">Delete</button></div>'
-    html = html.replace(/%id%/g, id);
+    html = html.replace(/%id%/g, id);                           //Add IDs to HTML tags
+
+    let inputDOM = document.querySelector('.add_task_input');   //Adds title of the task
+    let textInput = inputDOM.value;
+    html = html.replace('%title%', textInput);    
+    inputDOM.value = '';                                        //Empties input field
+
     document.querySelector('.unfinished_tasks').insertAdjacentHTML('beforeend', html);
     id++;
 })
@@ -20,12 +26,12 @@ document.querySelector('.add_task_btn').addEventListener('click', function() {
 
 document.querySelector('.tasks_container').addEventListener('click', function(event) {
     let eventID = event.target.id;
-    // For deleting task
-    if (eventID.startsWith('delete')) {
+    
+    if (eventID.startsWith('delete')) {                         // For deleting task
         handleDelete(event);
     }
-    // For checking finished or unfinished task
-    else if (eventID.startsWith('task_status')) {
+    
+    else if (eventID.startsWith('task_status')) {               // For checking finished or unfinished task
         handleFinished(event); 
     }
 })
@@ -35,7 +41,7 @@ function handleFinished(event) {
     let eventID = event.target.id;
     let taskTitleID = eventID.split('_')[2];
 
-    if (document.querySelector('#' + eventID).checked) { //Moves task to bottom of finished
+    if (document.querySelector('#' + eventID).checked) {        //Moves task to bottom of finished
         document.querySelector('.finished_tasks').appendChild(event.target.parentNode);
     }
     else {
