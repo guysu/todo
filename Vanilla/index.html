@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <h1>Welcome to the TODO List!</h1>
@@ -20,8 +22,15 @@
                 <div class="single_task" id="task_%id%">
                 <input type="checkbox" id="task_status"/>
                 <span class="task_title">%title%</span>
-                <button class="edit_btn">Edit</button>
-                <button class="delete_btn">Delete</button>
+                <button class="edit_btn" id="edit_%id%">Edit</button>
+                <button class="delete_btn" id="delete_%id%">Delete</button>
+                </div>
+            -->
+
+            <!--Edit element:
+                <div class="edit_task">
+                    <input type="text" id="edit_input_%id%"/>
+                    <button class="save_btn" id="save_%id%">Save Changes</button>
                 </div>
             -->
             

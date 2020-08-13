@@ -1,8 +1,18 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: x-large;
+    background-color: #dcf6f7;
+}
 
-
-
+h1 {
+    text-align: center;
+    margin-top: 90px;
+    margin-bottom: 55px;
+}
 
 
 .finished_task {
     text-decoration-line: line-through;
 }
+
