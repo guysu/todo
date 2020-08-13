@@ -2,9 +2,10 @@
 let id = 0;
 
 const DOMhtml = {
-    newTask: '<div class="single_task" id="task_%id%"><input type="checkbox" id="task_status_%id%"/> <span id="task_title_%id%">%title%</span> \
+    newTask: '<div class="single_task" id="task_%id%"><input type="checkbox" class="checkbox" id="task_status_%id%"/> <span class="task_title" \
+                id="task_title_%id%">%title%</span> \
                 <button class="edit_btn" id="edit_btn_%id%">Edit</button> <button class="delete_btn" id="delete_%id%">Delete</button></div>',
-    editElement: '<div class="edit_task" id="edit_task_%id%"> <input type="text" id="edit_input_%id%"/>\
+    editElement: '<div class="edit_task" id="edit_task_%id%"> <input type="text" class="edit_input" id="edit_input_%id%"/>\
                 <button class="save_btn" id="save_%id%">Save Changes</button></div>'
 }
 
