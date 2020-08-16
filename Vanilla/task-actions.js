@@ -26,6 +26,8 @@ function handleEdit(event) {
   const newElement = createHTMLElement(editElementHtml);
   const existingTitle = getTask(taskID).textContent;
   replaceTaskElement(event, newElement);
+  const saveBtnID = DOMElems.saveBtn + taskID;
+  addOnClickHandler(saveBtnID, taskActions.handleSave);
   let inputField = $(DOMElems.editInputId + taskID);
   inputField.value = existingTitle;
   inputField.focus();
@@ -55,6 +57,7 @@ function handleSave(event) {
     $(DOMElems.taskStatusId + taskID).checked = true;
     getTask(taskID).classList.add(DOMElems.finishedTaskClass);
   }
+  addActionListeners(taskID);
 }
 
 function getTask(taskID) {

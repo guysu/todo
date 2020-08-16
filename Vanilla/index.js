@@ -20,6 +20,9 @@ const DOMElems = {
   taskTitleId: "#task-title_",
   finishedTaskClass: "finished-task",
   allFinishedTasksClass: ".finished-tasks",
+  deleteBtn: "#delete_",
+  editBtn: "#edit-btn_",
+  saveBtn: "#save_",
 };
 
 function addOnClickHandler(DOMelement, func) {
@@ -27,26 +30,23 @@ function addOnClickHandler(DOMelement, func) {
 }
 
 addOnClickHandler(DOMElems.addTaskButtonClass, function () {
-  let html = DOMhtml.newTask.replace(/%id%/g, utils.generateGUID());
+  taskID = utils.generateGUID();
+  let html = DOMhtml.newTask.replace(/%id%/g, taskID);
   const inputDOM = $(DOMElems.addTaskInputClass);
   const textInput = inputDOM.value;
   if (textInput) {
     html = html.replace("%title%", textInput);
     inputDOM.value = "";
     $(DOMElems.unfinishedTasksClass).insertAdjacentHTML("beforeend", html);
+    addActionListeners(taskID);
   }
 });
 
-addOnClickHandler(DOMElems.tasksContainerClass, function (event) {
-  const eventID = event.target.id;
-
-  if (eventID.startsWith("delete")) {
-    taskActions.handleDelete(event);
-  } else if (eventID.startsWith("task-status")) {
-    taskActions.handleCheck(event);
-  } else if (eventID.startsWith("edit-btn")) {
-    taskActions.handleEdit(event);
-  } else if (eventID.startsWith("save")) {
-    taskActions.handleSave(event);
-  }
-});
+function addActionListeners(id) {
+  const deleteBtnID = DOMElems.deleteBtn + id;
+  addOnClickHandler(deleteBtnID, taskActions.handleDelete);
+  const taskCheckboxID = DOMElems.taskStatusId + id;
+  addOnClickHandler(taskCheckboxID, taskActions.handleCheck);
+  const editBtnID = DOMElems.editBtn + id;
+  addOnClickHandler(editBtnID, taskActions.handleEdit);
+}
