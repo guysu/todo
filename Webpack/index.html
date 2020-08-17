@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo List</title>
-    <link rel="stylesheet" type="text/css" href="./src/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <h1>Welcome to the TODO List!</h1>
-    <div class="add-task">
-      <input
-        type="text"
-        placeholder="Please enter a new tesk"
-        class="add-task-input"
-      />
-      <button class="add-task-btn">Add</button>
-    </div>
-    <div class="tasks-container">
-      <div class="unfinished-tasks"></div>
-      <div class="finished-tasks"></div>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo List</title>
+        <link rel="stylesheet" type="text/css" href="./src/style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <h1>Welcome to the TODO List!</h1>
+        <div class="add-task">
+            <input
+                type="text"
+                placeholder="Please enter a new tesk"
+                class="add-task-input"
+            />
+            <button class="add-task-btn">Add</button>
+        </div>
+        <div class="tasks-container">
+            <div class="unfinished-tasks"></div>
+            <div class="finished-tasks"></div>
+        </div>
 
-    <script src="./src/task-actions.js"></script>
-    <script src="./src/utils.js"></script>
-    <script src="./src/index.js"></script>
-
-    <!-- <script src="./dist/main.js"></script> -->
-  </body>
+        <script src="./dist/bundle.js"></script>
+    </body>
 </html>
