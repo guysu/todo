@@ -1,5 +1,6 @@
 import * as taskActions from "./task-actions";
 import * as utils from "./utils";
+import "./style.css";
 
 export const $ = document.querySelector.bind(document);
 

@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap");
+
 body {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-weight: 300;
     font-size: x-large;
     background-color: #e0f0f1;
@@ -10,7 +12,7 @@ body {
 button {
     margin: auto;
     font-size: inherit;
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
 }
 
 h1 {
@@ -39,10 +41,12 @@ h1 {
     margin-left: 27px;
     margin-right: 40px;
     padding: 8px 10px;
-    width: 40%
+    width: 40%;
 }
 
-.edit-btn, .delete-btn, .save-btn {
+.edit-btn,
+.delete-btn,
+.save-btn {
     font-size: large;
     margin: 3px;
     padding: 5px 15px;
@@ -57,7 +61,6 @@ h1 {
 }
 
 .add-task-btn {
-
     padding: 7px 24px;
     font-size: large;
     font-weight: 600;
@@ -80,4 +83,3 @@ h1 {
 .finished-task {
     text-decoration-line: line-through;
 }
-
