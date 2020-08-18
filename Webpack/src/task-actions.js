@@ -86,6 +86,6 @@ function editTaskInLS(taskID, newTitle) {
     localStorage.setItem(taskID, JSON.stringify(taskInfo));
 }
 
-export function getTask(taskID) {
+function getTask(taskID) {
     return index.$(index.DOMElems.taskTitleId + taskID);
 }
