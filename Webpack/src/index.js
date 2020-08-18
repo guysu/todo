@@ -34,17 +34,40 @@ export function addOnClickHandler(DOMelement, func) {
 }
 
 addOnClickHandler(DOMElems.addTaskButtonClass, function () {
-    const taskID = utils.generateGUID();
-    let html = DOMhtml.newTask.replace(/%id%/g, taskID);
     const inputDOM = $(DOMElems.addTaskInputClass);
     const textInput = inputDOM.value;
     if (textInput) {
-        html = html.replace("%title%", textInput);
+        const taskID = utils.generateGUID();
+        addTaskToDOM(taskID, textInput, false);
         inputDOM.value = "";
-        $(DOMElems.unfinishedTasksClass).insertAdjacentHTML("beforeend", html);
-        addActionListeners(taskID);
+        addNewTaskToLS(textInput, taskID);
     }
 });
+
+function addTaskToDOM(taskID, textInput, checked) {
+    let html = DOMhtml.newTask.replace(/%id%/g, taskID);
+    html = html.replace("%title%", textInput);
+    checked ? addFinishedTask(html, taskID) : addUnfinishedTask(html);
+    addActionListeners(taskID);
+}
+
+function addUnfinishedTask(html) {
+    $(DOMElems.unfinishedTasksClass).insertAdjacentHTML("beforeend", html);
+}
+
+function addFinishedTask(html, id) {
+    $(DOMElems.allFinishedTasksClass).insertAdjacentHTML("beforeend", html);
+    $(DOMElems.taskTitleId + id).classList.add(DOMElems.finishedTaskClass);
+    $(DOMElems.taskStatusId + id).checked = true;
+}
+
+function addNewTaskToLS(textInput, taskID) {
+    const taskInfo = {
+        title: textInput,
+        checked: false,
+    };
+    localStorage.setItem(taskID, JSON.stringify(taskInfo));
+}
 
 export function addActionListeners(id) {
     const deleteBtnID = DOMElems.deleteBtn + id;
@@ -54,3 +77,11 @@ export function addActionListeners(id) {
     const editBtnID = DOMElems.editBtn + id;
     addOnClickHandler(editBtnID, taskActions.handleEdit);
 }
+
+(function init() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const taskID = localStorage.key(i);
+        const { title, checked } = JSON.parse(localStorage.getItem(taskID));
+        addTaskToDOM(taskID, title, checked);
+    }
+})();

@@ -3,15 +3,24 @@ import * as index from "./index";
 export function handleDelete(event) {
     const parentID = event.target.parentNode.id;
     index.$("#" + parentID).remove();
+    const taskID = extractID(event);
+    localStorage.removeItem(taskID);
 }
 
 export function handleCheck(event) {
     const eventID = event.target.id;
-    const taskTitleID = eventID.split("_")[1];
+    const taskTitleID = extractID(event);
     index.$("#" + eventID).checked
         ? appendToFinished(event)
         : appendToUnfinished(event);
     getTask(taskTitleID).classList.toggle(index.DOMElems.finishedTaskClass);
+    checkTaskInLS(taskTitleID);
+}
+
+function checkTaskInLS(taskTitleID) {
+    let taskInfo = JSON.parse(localStorage.getItem(taskTitleID));
+    taskInfo.checked = !taskInfo.checked;
+    localStorage.setItem(taskTitleID, JSON.stringify(taskInfo));
 }
 
 function appendToUnfinished(event) {
@@ -27,7 +36,7 @@ function appendToFinished(event) {
 }
 
 export function handleEdit(event) {
-    const taskID = event.target.id.split("_")[1];
+    const taskID = extractID(event);
     const editElementHtml = index.DOMhtml.editElement.replace(/%id%/g, taskID);
     const newElement = createHTMLElement(editElementHtml);
     const existingTitle = getTask(taskID).textContent;
@@ -37,6 +46,10 @@ export function handleEdit(event) {
     let inputField = index.$(index.DOMElems.editInputId + taskID);
     inputField.value = existingTitle;
     inputField.focus();
+}
+
+function extractID(event) {
+    return event.target.id.split("_")[1];
 }
 
 function replaceTaskElement(event, newElement) {
@@ -52,7 +65,7 @@ function createHTMLElement(htmlString) {
 }
 
 export function handleSave(event) {
-    const taskID = event.target.id.split("_")[1];
+    const taskID = extractID(event);
     let html = index.DOMhtml.newTask.replace(/%id%/g, taskID);
     const taskStatus = event.target.parentNode.parentNode.classList[0];
     const newTitle = index.$(index.DOMElems.editInputId + taskID).value;
@@ -64,15 +77,15 @@ export function handleSave(event) {
         getTask(taskID).classList.add(index.DOMElems.finishedTaskClass);
     }
     index.addActionListeners(taskID);
+    editTaskInLS(taskID, newTitle);
 }
 
-function getTask(taskID) {
+function editTaskInLS(taskID, newTitle) {
+    let taskInfo = JSON.parse(localStorage.getItem(taskID));
+    taskInfo.title = newTitle;
+    localStorage.setItem(taskID, JSON.stringify(taskInfo));
+}
+
+export function getTask(taskID) {
     return index.$(index.DOMElems.taskTitleId + taskID);
 }
-
-/* export const taskActions = {
-    handleEdit,
-    handleDelete,
-    handleCheck,
-    handleSave,
-}; */
