@@ -1,5 +1,5 @@
-import { $ } from "./utils";
 import * as utils from "./utils";
+import { $ } from "./utils";
 import * as taskActions from "./task-actions";
 import { actionDOMElems } from "./task-actions";
 
@@ -10,16 +10,18 @@ export const appDOMElems = {
     allFinishedTasksClass: ".finished-tasks",
 };
 
-utils.addOnClickHandler(appDOMElems.addTaskButtonClass, function () {
-    const inputDOM = $(appDOMElems.addTaskInputClass);
-    const textInput = inputDOM.value;
-    if (textInput) {
-        const taskID = utils.generateGUID();
-        addTaskToDOM(taskID, textInput, false);
-        inputDOM.value = "";
-        addNewTaskToLS(textInput, taskID);
-    }
-});
+export function callNewTaskHandler() {
+    utils.addOnClickHandler(appDOMElems.addTaskButtonClass, function () {
+        const inputDOM = $(appDOMElems.addTaskInputClass);
+        const textInput = inputDOM.value;
+        if (textInput) {
+            const taskID = utils.generateGUID();
+            addTaskToDOM(taskID, textInput, false);
+            inputDOM.value = "";
+            addNewTaskToLS(textInput, taskID);
+        }
+    });
+}
 
 function addNewTaskToLS(textInput, taskID) {
     const taskInfo = {
