@@ -1,5 +1,5 @@
 import * as appCtrl from "./app.ctrl";
-import "./style.css";
+import "./style.scss";
 
 (function init() {
     appCtrl.callNewTaskHandler();

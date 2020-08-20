@@ -12,6 +12,15 @@ module.exports = {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"],
             },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "resolve-url-loader",
+                    "sass-loader",
+                ],
+            },
         ],
     },
     devtool: "source-map",
