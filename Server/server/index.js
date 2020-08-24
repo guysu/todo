@@ -21,14 +21,14 @@ app.get("/todos", (req, res) => {
 app.post("/todos", (req, res) => {
     const newTask = req.body;
     todos.push(newTask);
-    res.status(200).send("Success");
+    res.sendStatus(200);
 });
 
 app.delete("/todos/:id", (req, res) => {
     const id = req.params.id;
     const newTodos = todos.filter((el) => el.id !== id);
     todos = newTodos;
-    res.status(200).send("Success");
+    res.sendStatus(200);
 });
 
 app.put("/todos/:id", (req, res) => {
@@ -41,7 +41,7 @@ app.put("/todos/:id", (req, res) => {
     } else {
         taskToEdit.checked = checked;
     }
-    res.send(200);
+    res.sendStatus(200);
 });
 
 app.listen(PORT, () => console.log(`Listening to port ${PORT}`));
