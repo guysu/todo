@@ -1,3 +1,4 @@
+import axios from "axios";
 import { $ } from "./utils";
 import * as utils from "./utils";
 import { appDOMElems } from "./app.ctrl";
@@ -25,25 +26,22 @@ function handleDelete(event) {
     const parentID = event.target.parentNode.id;
     $("#" + parentID).remove();
     const taskID = extractID(event);
-    localStorage.removeItem(taskID);
+    fetch(`${utils.serverAddress}/${taskID}`, { method: "DELETE" });
 }
 
 function handleCheck(event) {
     const eventID = event.target.id;
     const taskTitleID = extractID(event);
-    $("#" + eventID).checked
-        ? appendToFinished(event)
-        : appendToUnfinished(event);
+    const currStatus = $("#" + eventID).checked;
+    currStatus ? appendToFinished(event) : appendToUnfinished(event);
     getTask(taskTitleID).classList.toggle(
         actionDOMElems.finishedTaskClassStyle
     );
-    checkTaskInLS(taskTitleID);
+    checkTaskInServer(taskTitleID, currStatus);
 }
 
-function checkTaskInLS(taskTitleID) {
-    let taskInfo = JSON.parse(localStorage.getItem(taskTitleID));
-    taskInfo.checked = !taskInfo.checked;
-    localStorage.setItem(taskTitleID, JSON.stringify(taskInfo));
+function checkTaskInServer(taskID, status) {
+    axios.put(`${utils.serverAddress}/${taskID}`, { checked: status });
 }
 
 function appendToUnfinished(event) {
@@ -96,7 +94,7 @@ function handleSave(event) {
         getTask(taskID).classList.add(actionDOMElems.finishedTaskClassStyle);
     }
     addActionListeners(taskID);
-    editTaskInLS(taskID, newTitle);
+    editTaskTitleInServer(taskID, newTitle);
 }
 
 export function addActionListeners(id) {
@@ -108,10 +106,8 @@ export function addActionListeners(id) {
     utils.addOnClickHandler(editBtnID, handleEdit);
 }
 
-function editTaskInLS(taskID, newTitle) {
-    let taskInfo = JSON.parse(localStorage.getItem(taskID));
-    taskInfo.title = newTitle;
-    localStorage.setItem(taskID, JSON.stringify(taskInfo));
+function editTaskTitleInServer(taskID, newTitle) {
+    axios.put(`${utils.serverAddress}/${taskID}`, { title: newTitle });
 }
 
 function getTask(taskID) {

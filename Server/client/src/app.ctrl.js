@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as utils from "./utils";
 import { $ } from "./utils";
 import * as taskActions from "./task-actions";
@@ -18,17 +19,17 @@ export function callNewTaskHandler() {
             const taskID = utils.generateGUID();
             addTaskToDOM(taskID, textInput, false);
             inputDOM.value = "";
-            addNewTaskToLS(textInput, taskID);
+            addNewTaskToServer(textInput, taskID);
         }
     });
 }
 
-function addNewTaskToLS(textInput, taskID) {
-    const taskInfo = {
+function addNewTaskToServer(textInput, taskID) {
+    axios.post(utils.serverAddress, {
+        id: taskID,
         title: textInput,
         checked: false,
-    };
-    localStorage.setItem(taskID, JSON.stringify(taskInfo));
+    });
 }
 
 export function addTaskToDOM(taskID, textInput, checked) {

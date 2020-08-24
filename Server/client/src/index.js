@@ -1,11 +1,13 @@
 import * as appCtrl from "./app.ctrl";
 import "./style.scss";
+import { serverAddress } from "./utils";
 
-(function init() {
+(async function init() {
     appCtrl.callNewTaskHandler();
-    for (let i = 0; i < localStorage.length; i++) {
-        const taskID = localStorage.key(i);
-        const { title, checked } = JSON.parse(localStorage.getItem(taskID));
-        appCtrl.addTaskToDOM(taskID, title, checked);
+    const todos = await (await fetch(serverAddress)).json();
+
+    for (let i = 0; i < todos.length; i++) {
+        const { id, title, checked } = todos[i];
+        appCtrl.addTaskToDOM(id, title, checked);
     }
 })();

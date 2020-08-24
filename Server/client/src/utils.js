@@ -12,3 +12,5 @@ export function generateGUID() {
 export function addOnClickHandler(DOMelement, func) {
     $(DOMelement).addEventListener("click", func);
 }
+
+export const serverAddress = "http://localhost:3232/todos";
