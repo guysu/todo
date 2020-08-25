@@ -16,7 +16,7 @@ app.get("/todos", (req, res) => {
 app.post("/todos", (req, res) => {
     const newTask = req.body;
     todos.push(newTask);
-    res.sendStatus(200);
+    res.send(todos);
 });
 
 app.delete("/todos/:id", (req, res) => {
@@ -28,7 +28,6 @@ app.delete("/todos/:id", (req, res) => {
 
 app.put("/todos/:id", (req, res) => {
     const id = req.params.id;
-    console.log(id);
     const taskToEdit = todos.find((el) => el.id === id);
     const { title, checked } = req.body;
     if (title) {

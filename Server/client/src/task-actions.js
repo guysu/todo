@@ -1,7 +1,11 @@
-import axios from "axios";
 import { $ } from "./utils";
 import * as utils from "./utils";
 import { appDOMElems } from "./app.ctrl";
+import {
+    checkTaskInServer,
+    editTaskTitleInServer,
+    deleteTaskFromServer,
+} from "./server-api";
 
 export const actionDOMElems = {
     editInputId: "#edit-input_",
@@ -26,7 +30,7 @@ function handleDelete(event) {
     const parentID = event.target.parentNode.id;
     $("#" + parentID).remove();
     const taskID = extractID(event);
-    fetch(`${utils.serverAddress}/${taskID}`, { method: "DELETE" });
+    deleteTaskFromServer(taskID);
 }
 
 function handleCheck(event) {
@@ -38,10 +42,6 @@ function handleCheck(event) {
         actionDOMElems.finishedTaskClassStyle
     );
     checkTaskInServer(taskTitleID, currStatus);
-}
-
-function checkTaskInServer(taskID, status) {
-    axios.put(`${utils.serverAddress}/${taskID}`, { checked: status });
 }
 
 function appendToUnfinished(event) {
@@ -104,10 +104,6 @@ export function addActionListeners(id) {
     utils.addOnClickHandler(taskCheckboxID, handleCheck);
     const editBtnID = actionDOMElems.editBtn + id;
     utils.addOnClickHandler(editBtnID, handleEdit);
-}
-
-function editTaskTitleInServer(taskID, newTitle) {
-    axios.put(`${utils.serverAddress}/${taskID}`, { title: newTitle });
 }
 
 function getTask(taskID) {

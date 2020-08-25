@@ -1,8 +1,8 @@
-import axios from "axios";
 import * as utils from "./utils";
 import { $ } from "./utils";
 import * as taskActions from "./task-actions";
 import { actionDOMElems } from "./task-actions";
+import { addNewTaskToServer } from "./server-api";
 
 export const appDOMElems = {
     addTaskButtonClass: ".add-task-btn",
@@ -21,14 +21,6 @@ export function callNewTaskHandler() {
             inputDOM.value = "";
             addNewTaskToServer(textInput, taskID);
         }
-    });
-}
-
-function addNewTaskToServer(textInput, taskID) {
-    axios.post(utils.serverAddress, {
-        id: taskID,
-        title: textInput,
-        checked: false,
     });
 }
 
