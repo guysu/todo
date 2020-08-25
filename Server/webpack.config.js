@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
     entry: "./client/src/index.js",
     output: {
-        path: path.resolve(__dirname, "client/src/dist"),
+        path: path.resolve(__dirname, "client/public"),
         filename: "bundle.js",
     },
     module: {
@@ -24,4 +24,5 @@ module.exports = {
         ],
     },
     devtool: "source-map",
+    watch: true,
 };

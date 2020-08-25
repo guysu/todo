@@ -1,15 +1,10 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 
-const PORT = 3232;
+const PORT = 80;
 
-let allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    next();
-};
-app.use(allowCrossDomain);
+app.use(express.static(path.join(__dirname + "/../client/public/")));
 app.use(express.json());
 
 let todos = [];
