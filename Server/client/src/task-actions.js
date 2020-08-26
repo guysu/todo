@@ -27,10 +27,14 @@ export const newTask =
                 <button class="edit-btn" id="edit-btn_%id%">Edit</button> <button class="delete-btn" id="delete_%id%">Delete</button></div>';
 
 function handleDelete(event) {
-    const parentID = event.target.parentNode.id;
-    $("#" + parentID).remove();
-    const taskID = extractID(event);
-    deleteTaskFromServer(taskID);
+    try {
+        deleteTaskFromServer(taskID);
+        const parentID = event.target.parentNode.id;
+        $("#" + parentID).remove();
+        const taskID = extractID(event);
+    } catch {
+        alert("Could not delete data from server, please try again");
+    }
 }
 
 function handleCheck(event) {

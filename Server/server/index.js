@@ -14,6 +14,7 @@ app.get("/todos", (req, res) => {
 });
 
 app.post("/todos", (req, res) => {
+    throw "new";
     const newTask = req.body;
     todos.push(newTask);
     res.send(todos);

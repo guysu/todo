@@ -8,10 +8,14 @@ window.onload = () => {
 };
 
 (async function init() {
-    appCtrl.callNewTaskHandler();
-    const todos = await getAllTodosFromServer();
-    for (let i = 0; i < todos.length; i++) {
-        const { id, title, checked } = todos[i];
-        appCtrl.addTaskToDOM(id, title, checked);
+    try {
+        appCtrl.callNewTaskHandler();
+        const todos = await getAllTodosFromServer();
+        for (let i = 0; i < todos.length; i++) {
+            const { id, title, checked } = todos[i];
+            appCtrl.addTaskToDOM(id, title, checked);
+        }
+    } catch {
+        alert("Could not retrieve data from server, please try again");
     }
 })();
