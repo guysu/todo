@@ -12,13 +12,13 @@ export const appDOMElems = {
 };
 
 export function callNewTaskHandler() {
-    utils.addOnClickHandler(appDOMElems.addTaskButtonClass, function () {
+    utils.addOnClickHandler(appDOMElems.addTaskButtonClass, async function () {
         const inputDOM = $(appDOMElems.addTaskInputClass);
         const textInput = inputDOM.value;
         if (textInput) {
             try {
                 const taskID = utils.generateGUID();
-                addNewTaskToServer(textInput, taskID);
+                await addNewTaskToServer(textInput, taskID);
                 addTaskToDOM(taskID, textInput, false);
                 inputDOM.value = "";
             } catch {

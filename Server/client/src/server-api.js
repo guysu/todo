@@ -12,15 +12,11 @@ export async function getAllTodosFromServer() {
 }
 
 export function addNewTaskToServer(textInput, taskID) {
-    axios
-        .post(serverPrefix, {
-            id: taskID,
-            title: textInput,
-            checked: false,
-        })
-        .catch((e) => {
-            throw "e";
-        });
+    return axios.post(serverPrefix, {
+        id: taskID,
+        title: textInput,
+        checked: false,
+    });
 }
 
 export function checkTaskInServer(taskID, status) {
