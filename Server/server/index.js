@@ -11,6 +11,7 @@ app.use(express.json());
 let todos = [];
 
 app.get("/todos", (req, res) => {
+    console.log(todos);
     res.send(todos);
 });
 
@@ -30,13 +31,8 @@ app.delete("/todos/:id", (req, res) => {
 
 app.put("/todos/:id", (req, res) => {
     const id = req.params.id;
-    const taskToEdit = todos.find((el) => el.id === id);
-    const { title, checked } = req.body;
-    if (title) {
-        taskToEdit.title = title;
-    } else {
-        taskToEdit.checked = checked;
-    }
+    let taskIdx = todos.findIndex((el) => el.id === id);
+    todos[taskIdx] = { ...todos[taskIdx], ...req.body };
     res.sendStatus(200);
 });
 
