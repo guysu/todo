@@ -3,6 +3,8 @@ import "./style.scss";
 import { getAllTodosFromServer } from "./server-api";
 import { $ } from "./utils";
 
+//TESTING!
+
 window.onload = () => {
     $("body").style.display = "block";
 };
