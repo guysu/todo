@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const uuid = require("uuid");
 const app = express();
 
 const PORT = 80;
@@ -14,9 +15,10 @@ app.get("/todos", (req, res) => {
 });
 
 app.post("/todos", (req, res) => {
-    const newTask = req.body;
+    const taskID = uuid.v4();
+    const newTask = { id: taskID, ...req.body };
     todos.push(newTask);
-    res.send(todos);
+    res.send(newTask);
 });
 
 app.delete("/todos/:id", (req, res) => {

@@ -12,14 +12,14 @@ export const appDOMElems = {
 };
 
 export function callNewTaskHandler() {
-    utils.addOnClickHandler(appDOMElems.addTaskButtonClass, function () {
+    utils.addOnClickHandler(appDOMElems.addTaskButtonClass, async function () {
         const inputDOM = $(appDOMElems.addTaskInputClass);
         const textInput = inputDOM.value;
         if (textInput) {
-            const taskID = utils.generateGUID();
-            addTaskToDOM(taskID, textInput, false);
+            const res = await addNewTaskToServer(textInput);
+            const { id, title, checked } = res.data;
+            addTaskToDOM(id, title, checked);
             inputDOM.value = "";
-            addNewTaskToServer(textInput, taskID);
         }
     });
 }

@@ -6,9 +6,8 @@ export async function getAllTodosFromServer() {
     return (await fetch(serverPrefix)).json();
 }
 
-export function addNewTaskToServer(textInput, taskID) {
-    axios.post(serverPrefix, {
-        id: taskID,
+export async function addNewTaskToServer(textInput) {
+    return await axios.post(serverPrefix, {
         title: textInput,
         checked: false,
     });
