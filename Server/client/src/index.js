@@ -1,6 +1,11 @@
 import * as appCtrl from "./app.ctrl";
 import "./style.scss";
 import { getAllTodosFromServer } from "./server-api";
+import { $ } from "./utils";
+
+window.onload = () => {
+    $("body").style.display = "block";
+};
 
 (async function init() {
     appCtrl.callNewTaskHandler();
