@@ -16,10 +16,15 @@ export function callNewTaskHandler() {
         const inputDOM = $(appDOMElems.addTaskInputClass);
         const textInput = inputDOM.value;
         if (textInput) {
-            const res = await addNewTaskToServer(textInput);
-            const { id, title, checked } = res.data;
-            addTaskToDOM(id, title, checked);
-            inputDOM.value = "";
+            try {
+                const res = await addNewTaskToServer(textInput);
+                const { id, title, checked } = res.data;
+                addTaskToDOM(id, title, checked);
+                inputDOM.value = "";
+            }
+            catch {
+                alert("Could not add task to server, please try again");
+            }
         }
     });
 }

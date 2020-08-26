@@ -3,7 +3,12 @@ import axios from "axios";
 const serverPrefix = "/todos";
 
 export async function getAllTodosFromServer() {
-    return (await fetch(serverPrefix)).json();
+    const res = await fetch(serverPrefix);
+    if (res.ok) {
+        return res.json();
+    } else {
+        throw "Server Error";
+    }
 }
 
 export async function addNewTaskToServer(textInput) {
@@ -14,17 +19,20 @@ export async function addNewTaskToServer(textInput) {
 }
 
 export function checkTaskInServer(taskID, status) {
-    axios.put(getLocalAddress(taskID), { checked: status });
+    axios.put(getAddress(taskID), { checked: status });
 }
 
 export function editTaskTitleInServer(taskID, newTitle) {
-    axios.put(getLocalAddress(taskID), { title: newTitle });
+    axios.put(getAddress(taskID), { title: newTitle });
 }
 
 export function deleteTaskFromServer(taskID) {
-    fetch(getLocalAddress(taskID), { method: "DELETE" });
+    const res = fetch(getAddress(taskID), { method: "DELETE" });
+    if (!res.ok) {
+        throw "Server Error";
+    }
 }
 
-function getLocalAddress(taskID) {
+function getAddress(taskID) {
     return `${serverPrefix}/${taskID}`;
 }
