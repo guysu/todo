@@ -37,15 +37,19 @@ function handleDelete(event) {
     }
 }
 
-function handleCheck(event) {
+async function handleCheck(event) {
     const eventID = event.target.id;
     const taskTitleID = extractID(event);
     const currStatus = $("#" + eventID).checked;
-    currStatus ? appendToFinished(event) : appendToUnfinished(event);
-    getTask(taskTitleID).classList.toggle(
-        actionDOMElems.finishedTaskClassStyle
-    );
-    checkTaskInServer(taskTitleID, currStatus);
+    try {
+        await checkTaskInServer(taskTitleID, currStatus);
+        currStatus ? appendToFinished(event) : appendToUnfinished(event);
+        getTask(taskTitleID).classList.toggle(
+            actionDOMElems.finishedTaskClassStyle
+        );
+    } catch {
+        alert("Could not check this task, please try again");
+    }
 }
 
 function appendToUnfinished(event) {
@@ -85,20 +89,26 @@ function createHTMLElement(htmlString) {
     return div.firstChild;
 }
 
-function handleSave(event) {
+async function handleSave(event) {
     const taskID = extractID(event);
     let html = newTask.replace(/%id%/g, taskID);
     const taskStatus = event.target.parentNode.parentNode.classList[0];
     const newTitle = $(actionDOMElems.editInputId + taskID).value;
     html = html.replace("%title%", newTitle);
     const editedTaskElement = createHTMLElement(html);
-    replaceTaskElement(event, editedTaskElement);
-    if (taskStatus.startsWith("finished")) {
-        $(actionDOMElems.taskStatusId + taskID).checked = true;
-        getTask(taskID).classList.add(actionDOMElems.finishedTaskClassStyle);
+    try {
+        await editTaskTitleInServer(taskID, newTitle);
+        replaceTaskElement(event, editedTaskElement);
+        if (taskStatus.startsWith("finished")) {
+            $(actionDOMElems.taskStatusId + taskID).checked = true;
+            getTask(taskID).classList.add(
+                actionDOMElems.finishedTaskClassStyle
+            );
+        }
+        addActionListeners(taskID);
+    } catch {
+        alert("Could not edit this task, please try again");
     }
-    addActionListeners(taskID);
-    editTaskTitleInServer(taskID, newTitle);
 }
 
 export function addActionListeners(id) {

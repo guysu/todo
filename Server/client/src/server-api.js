@@ -18,12 +18,12 @@ export async function addNewTaskToServer(textInput) {
     });
 }
 
-export function checkTaskInServer(taskID, status) {
-    axios.put(getAddress(taskID), { checked: status });
+export async function checkTaskInServer(taskID, status) {
+    await axios.put(getAddress(taskID), { checked: status });
 }
 
-export function editTaskTitleInServer(taskID, newTitle) {
-    axios.put(getAddress(taskID), { title: newTitle });
+export async function editTaskTitleInServer(taskID, newTitle) {
+    await axios.put(getAddress(taskID), { title: newTitle });
 }
 
 export function deleteTaskFromServer(taskID) {
