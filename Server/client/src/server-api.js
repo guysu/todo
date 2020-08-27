@@ -26,8 +26,8 @@ export async function editTaskTitleInServer(taskID, newTitle) {
     await axios.put(getAddress(taskID), { title: newTitle });
 }
 
-export function deleteTaskFromServer(taskID) {
-    const res = fetch(getAddress(taskID), { method: "DELETE" });
+export async function deleteTaskFromServer(taskID) {
+    const res = await fetch(getAddress(taskID), { method: "DELETE" });
     if (!res.ok) {
         throw "Server Error";
     }

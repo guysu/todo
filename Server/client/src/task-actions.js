@@ -28,10 +28,10 @@ export const newTask =
 
 function handleDelete(event) {
     try {
+        const taskID = extractID(event);
         deleteTaskFromServer(taskID);
         const parentID = event.target.parentNode.id;
         $("#" + parentID).remove();
-        const taskID = extractID(event);
     } catch {
         alert("Could not delete data from server, please try again");
     }
