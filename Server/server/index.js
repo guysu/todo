@@ -18,7 +18,7 @@ app.get("/todos", (req, res) => {
     if (!userID) {
         userID = uuid.v4();
         todos.set(userID, []);
-        res.cookie("id", userID);
+        res.cookie("id", userID, { httpOnly: true });
     }
     res.send(todos.get(userID));
 });
