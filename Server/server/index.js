@@ -4,7 +4,7 @@ const uuid = require("uuid");
 const cookieParser = require("cookie-parser");
 const app = express();
 
-const PORT = 80;
+const PORT = process.env.PORT || 80;
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname + "/../client/public/")));
