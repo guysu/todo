@@ -8,6 +8,7 @@ const client = require("redis").createClient(process.env.REDIS_URL);
 client.on("connect", function () {
     console.log("Successfully connected");
 });
+
 // client.flushall();
 
 const PORT = process.env.PORT || 80;
@@ -17,7 +18,6 @@ app.use(express.static(path.join(__dirname + "/../client/public/")));
 app.use(express.json());
 
 const getUserID = (req) => req.cookies.id;
-let todos = new Map();
 
 app.get("/todos", (req, res) => {
     let userID = getUserID(req);
@@ -48,11 +48,11 @@ app.delete("/todos/:id", (req, res) => {
     const userID = getUserID(req);
     const taskID = req.params.id;
     client.hmget(userID, "todos", (err, obj) => {
-        const oldArray = JSON.parse(obj);
+        const oldTodos = JSON.parse(obj);
         client.hmset(
             userID,
             "todos",
-            JSON.stringify(oldArray.filter((el) => el.id !== taskID))
+            JSON.stringify(oldTodos.filter((el) => el.id !== taskID))
         );
     });
     res.sendStatus(200);
@@ -61,8 +61,12 @@ app.delete("/todos/:id", (req, res) => {
 app.put("/todos/:id", (req, res) => {
     let userID = getUserID(req);
     const taskID = req.params.id;
-    let taskIdx = todos.get(userID).findIndex((el) => el.id === taskID);
-    todos.get(userID)[taskIdx] = { ...todos.get(userID)[taskIdx], ...req.body };
+    client.hmget(userID, "todos", (err, obj) => {
+        let allTodosFromUser = JSON.parse(obj);
+        const taskIdx = allTodosFromUser.findIndex((el) => el.id === taskID);
+        allTodosFromUser[taskIdx] = { ...allTodosFromUser[taskIdx], ...req.body };
+        client.hmset(userID, "todos", JSON.stringify(allTodosFromUser));
+    });
     res.sendStatus(200);
 });
 
