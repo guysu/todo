@@ -20,13 +20,6 @@ const getUserID = (req) => req.cookies.id;
 let todos = new Map();
 
 app.get("/todos", (req, res) => {
-    /* let userID = getUserID(req);
-    if (!userID) {
-        userID = uuid.v4();
-        todos.set(userID, []);
-        res.cookie("id", userID, { httpOnly: true });
-    }
-    res.send(todos.get(userID)); */
     let userID = getUserID(req);
     if (!userID) {
         userID = uuid.v4();
@@ -35,7 +28,6 @@ app.get("/todos", (req, res) => {
         res.cookie("id", userID, { httpOnly: true });
     }
     client.hmget(userID, "todos", (err, obj) => {
-        console.log(obj);
         res.send(JSON.parse(obj));
     });
 });
@@ -44,7 +36,6 @@ app.post("/todos", (req, res) => {
     let userID = getUserID(req);
     const taskID = uuid.v4();
     const newTask = { id: taskID, ...req.body };
-    // todos.get(userID).push(newTask);
     client.hmget(userID, "todos", (err, obj) => {
         const newArray = JSON.parse(obj);
         newArray.push(newTask);
@@ -54,10 +45,16 @@ app.post("/todos", (req, res) => {
 });
 
 app.delete("/todos/:id", (req, res) => {
-    let userID = getUserID(req);
+    const userID = getUserID(req);
     const taskID = req.params.id;
-    const taskIdx = todos.get(userID).findIndex((el) => el.id === taskID);
-    todos.get(userID).splice(taskIdx, 1);
+    client.hmget(userID, "todos", (err, obj) => {
+        const oldArray = JSON.parse(obj);
+        client.hmset(
+            userID,
+            "todos",
+            JSON.stringify(oldArray.filter((el) => el.id !== taskID))
+        );
+    });
     res.sendStatus(200);
 });
 
