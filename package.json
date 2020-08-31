@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "./node_modules/webpack/bin/webpack.js --mode production && node Server/server/index.js"
     },
     "repository": {
         "type": "git",
@@ -15,18 +15,16 @@
         "cookie-parser": "^1.4.5",
         "express": "^4.17.1",
         "redis": "^3.0.2",
-        "uuid": "^8.3.0"
-    },
-    "devDependencies": {
+        "uuid": "^8.3.0",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0",
         "css-loader": "^4.2.1",
         "nodemon": "^2.0.4",
         "resolve-url-loader": "^3.1.1",
         "sass": "^1.26.10",
         "sass-loader": "^9.0.3",
-        "style-loader": "^1.2.1",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0"
+        "style-loader": "^1.2.1"
     },
     "keywords": [],
     "author": "",
