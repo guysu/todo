@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const uuid = require("uuid");
 const cookieParser = require("cookie-parser");
-const { type } = require("os");
 const app = express();
 const client = require("redis").createClient(process.env.REDIS_URL);
 client.on("connect", function () {
@@ -23,7 +22,7 @@ app.get("/todos", (req, res) => {
         userID = uuid.v4();
         const emptyArray = JSON.stringify([]);
         client.hmset(userID, "todos", emptyArray);
-        res.cookie("id", userID, { httpOnly: true });
+        res.cookie("userID", userID, { httpOnly: true });
     }
     client.hmget(userID, "todos", (err, obj) => {
         res.send(JSON.parse(obj));
