@@ -5,17 +5,33 @@ client.on("connect", function () {
 const { promisify } = require("util");
 
 const hmgetAsync = promisify(client.hmget).bind(client);
+const hgetallAsync = promisify(client.hgetall).bind(client);
 
-const setValue = (userID, objToSet) => {
-    client.hmset(userID, "todos", JSON.stringify(objToSet));
+const setTask = (userID, taskToSet) => {
+    client.hmset(userID, taskToSet.id, JSON.stringify(taskToSet));
 };
 
-const getUserTodos = async (userID) => {
-    const userTodos = await hmgetAsync(userID, "todos");
+const getAllUserTodos = async (userID) => {
+    let allTodos = await hgetallAsync(userID);
+    if (allTodos) {
+        return Object.values(allTodos).map((el) => JSON.parse(el));
+    } else {
+        return [];
+    }
+};
+
+const getSingleTodo = async (userID, taskID) => {
+    const userTodos = await hmgetAsync(userID, taskID);
     return JSON.parse(userTodos);
 };
 
+const deleteSingleTodo = async (userID, taskID) => {
+    client.hdel(userID, taskID);
+};
+
 module.exports = {
-    setValue: setValue,
-    getUserTodos: getUserTodos,
+    setTask: setTask,
+    getAllUserTodos: getAllUserTodos,
+    getSingleTodo: getSingleTodo,
+    deleteSingleTodo: deleteSingleTodo,
 };
