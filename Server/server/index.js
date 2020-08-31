@@ -9,8 +9,6 @@ client.on("connect", function () {
     console.log("Successfully connected");
 });
 
-// client.flushall();
-
 const PORT = process.env.PORT || 80;
 
 app.use(cookieParser());
@@ -64,7 +62,10 @@ app.put("/todos/:id", (req, res) => {
     client.hmget(userID, "todos", (err, obj) => {
         let allTodosFromUser = JSON.parse(obj);
         const taskIdx = allTodosFromUser.findIndex((el) => el.id === taskID);
-        allTodosFromUser[taskIdx] = { ...allTodosFromUser[taskIdx], ...req.body };
+        allTodosFromUser[taskIdx] = {
+            ...allTodosFromUser[taskIdx],
+            ...req.body,
+        };
         client.hmset(userID, "todos", JSON.stringify(allTodosFromUser));
     });
     res.sendStatus(200);
