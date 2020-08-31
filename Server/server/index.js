@@ -38,14 +38,20 @@ app.delete("/todos/:id", async (req, res) => {
 });
 
 app.put("/todos/:id", async (req, res) => {
+    let editVal;
     let userID = getUserID(req);
     const taskID = req.params.id;
     let taskToEdit = await DAO.getSingleTodo(userID, taskID);
-    taskToEdit = {
-        ...taskToEdit,
-        ...req.body,
-    };
-    DAO.setTask(userID, taskToEdit);
+    if (typeof req.body.checked === "undefined") {
+        if (typeof req.body.title === "undefined") {
+            res.sendStatus(400);
+        } else {
+            editVal = { title: req.body.title };
+        }
+    } else {
+        editVal = { checked: req.body.checked };
+    }
+    DAO.setTask(userID, {...taskToEdit, ...editVal});
     res.sendStatus(200);
 });
 
