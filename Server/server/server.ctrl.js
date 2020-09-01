@@ -1,44 +1,33 @@
 const uuid = require("uuid");
 const DAO = require("../db/db-api");
 
-const getUserID = (req) => req.cookies.userID;
-
-const getAllUserTodos = async (req) => {
-    let userID = getUserID(req);
-    if (!userID) {
-        userID = uuid.v4();
-    }
+const getAllUserTodos = async (userID) => {
     const allTodos = await DAO.getAllUserTodos(userID);
-    return { userID, allTodos };
+    return allTodos;
 };
 
-const createNewTodo = (req) => {
-    let userID = getUserID(req);
+const createNewTodo = (userID, taskToAdd) => {
     const taskID = uuid.v4();
-    const newTask = { id: taskID, ...req.body };
+    const newTask = { id: taskID, ...taskToAdd };
     DAO.setTask(userID, newTask);
     return newTask;
 };
 
-const deleteTodo = (req) => {
-    const userID = getUserID(req);
-    const taskID = req.params.id;
+const deleteTodo = (userID, taskID) => {
     DAO.deleteSingleTodo(userID, taskID);
 };
 
-const editTodo = async (req) => {
+const editTodo = async (userID, taskID, checked, title) => {
     let editVal;
-    let userID = getUserID(req);
-    const taskID = req.params.id;
-    let taskToEdit = await DAO.getSingleTodo(userID, taskID);
-    if (typeof req.body.checked === "undefined") {
-        if (typeof req.body.title === "undefined") {
+    const taskToEdit = await DAO.getSingleTodo(userID, taskID);
+    if (typeof checked === "undefined") {
+        if (typeof title === "undefined") {
             return false;
         } else {
-            editVal = { title: req.body.title };
+            editVal = { title: title };
         }
     } else {
-        editVal = { checked: req.body.checked };
+        editVal = { checked: checked };
     }
     DAO.setTask(userID, { ...taskToEdit, ...editVal });
     return true;
