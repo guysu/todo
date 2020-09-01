@@ -30,8 +30,8 @@ const deleteSingleTodo = async (userID, taskID) => {
 };
 
 module.exports = {
-    setTask: setTask,
-    getAllUserTodos: getAllUserTodos,
-    getSingleTodo: getSingleTodo,
-    deleteSingleTodo: deleteSingleTodo,
+    setTask,
+    getAllUserTodos,
+    getSingleTodo,
+    deleteSingleTodo,
 };
