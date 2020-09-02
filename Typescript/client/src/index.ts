@@ -1,3 +1,4 @@
+import "./style.scss";
 import { $ } from "./utils";
 
 window.onload = () => {
