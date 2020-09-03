@@ -1,10 +1,11 @@
-import { Todo, NewTodo } from "../common/types";
+import { Todo } from "../common/types";
 const client = require("redis").createClient(process.env.REDIS_URL);
 client.on("connect", function () {
     console.log("Successfully connected");
 });
-const { promisify } = require("util");
+import { promisify } from "util";
 
+// client.flushall(); // DELETE!!
 
 const hmgetAsync = promisify(client.hmget).bind(client);
 const hgetallAsync = promisify(client.hgetall).bind(client);
@@ -26,4 +27,3 @@ export const getSingleTodo = async (userID: string, taskID: string) => {
 export const deleteSingleTodo = async (userID: string, taskID: string) => {
     client.hdel(userID, taskID);
 };
-

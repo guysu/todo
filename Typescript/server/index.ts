@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const uuid = require("uuid");
 import * as ctrl from "./server.ctrl";
 import { Request, Response } from "express";
+import { Todo, NewTodo } from "../common/types";
 
 const app = express();
 
@@ -13,18 +14,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname + "/../client/public/")));
 app.use(express.json());
 
-const getUserID = (req: Request) => req.cookies.userID;
+const getUserID = (req: Request): string => req.cookies.userID;
 
 app.get("/todos", async (req: Request, res: Response) => {
     const userID = getUserID(req) || uuid.v4();
-    const allTodos = await ctrl.getAllUserTodos(userID);
+    const allTodos: Todo[] = await ctrl.getAllUserTodos(userID);
     res.cookie("userID", userID, { httpOnly: true });
     res.send(allTodos);
 });
 
 app.post("/todos", (req: Request, res: Response) => {
     const userID = getUserID(req);
-    const newTask = req.body;
+    const newTask: NewTodo = req.body;
     res.send(ctrl.createNewTodo(userID, newTask));
 });
 
