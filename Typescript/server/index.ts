@@ -17,7 +17,7 @@ const getUserID = (req: Request): string => (req as userAuthRequest).userId;
 
 app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);
-    res.status(200).render(path.join(__dirname + "/../views/index.ejs"));
+    res.status(200).render(path.join(__dirname + "/../client/views/index.ejs"));
 });
 
 app.get("/todos", authenticateToken, async (req: Request, res: Response) => {
