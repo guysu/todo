@@ -13,23 +13,23 @@ export const appDOMElems = {
 
 const addUnfinishedTask = (html: string) => {
     $(appDOMElems.unfinishedTasksClass)!.insertAdjacentHTML("beforeend", html);
-}
+};
 
 const addFinishedTask = (html: string, id: string) => {
     $(appDOMElems.allFinishedTasksClass)!.insertAdjacentHTML("beforeend", html);
     $(actionDOMElems.taskTitleId + id)!.classList.add(
         actionDOMElems.finishedTaskClassStyle
     );
-	const checkboxElement = <HTMLInputElement> $(actionDOMElems.taskStatusId + id);
-	checkboxElement.checked = true;
-}
+    const checkboxElement = <HTMLInputElement>$(actionDOMElems.taskStatusId + id);
+    checkboxElement.checked = true;
+};
 
 export const addTaskToDOM = (taskID: string, textInput: string, checked: boolean) => {
     let html = taskActions.newTask.replace(/%id%/g, taskID);
     html = html.replace("%title%", textInput);
     checked ? addFinishedTask(html, taskID) : addUnfinishedTask(html);
     taskActions.addActionListeners(taskID);
-}
+};
 
 export const callNewTaskHandler = () => {
     utils.addOnClickHandler(appDOMElems.addTaskButtonClass, async function () {

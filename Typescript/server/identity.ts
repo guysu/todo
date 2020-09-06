@@ -14,7 +14,10 @@ export const authenticateToken = async (
 ) => {
     let accessToken = getAccessToken(req);
     jwt.verify(accessToken, secret, (err: any, user: any) => {
-        err ? res.sendStatus(403) : ((req as userAuthRequest).userId = user.userId);
+        if (err) {
+            return res.sendStatus(403);
+        }
+        (req as userAuthRequest).userId = user.userId;
     });
     next();
 };

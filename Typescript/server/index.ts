@@ -15,9 +15,9 @@ app.use(express.json());
 
 const getUserID = (req: Request): string => (req as userAuthRequest).userId;
 
-app.get("/login", async (req: Request, res: Response) => {
+app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);
-    res.sendStatus(200);
+    res.status(200).render(path.join(__dirname + "/../views/index.ejs"));
 });
 
 app.get("/todos", authenticateToken, async (req: Request, res: Response) => {

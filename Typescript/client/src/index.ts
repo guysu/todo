@@ -10,7 +10,7 @@ window.onload = () => {
 
 (async function () {
     try {
-        await initialConnection();
+        // await initialConnection();
         appCtrl.callNewTaskHandler();
         const todos: Todo[] = await getAllTodosFromServer();
         for (let todo of todos) {
