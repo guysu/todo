@@ -1,9 +1,9 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./Typescript/client/src/index.ts",
+    entry: "./React/client/src/index.tsx",
     output: {
-        path: path.resolve(__dirname, "Typescript/client/public"),
+        path: path.resolve(__dirname, "React/client/public"),
         filename: "bundle.js",
     },
     module: {
@@ -19,12 +19,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [
-                    "style-loader",
-                    "css-loader",
-                    "resolve-url-loader",
-                    "sass-loader",
-                ],
+                use: ["style-loader", "css-loader", "resolve-url-loader", "sass-loader"],
             },
         ],
     },
@@ -32,4 +27,5 @@ module.exports = {
         extensions: [".tsx", ".ts", ".js"],
     },
     devtool: "source-map",
+    watch: true,
 };
