@@ -6,7 +6,7 @@
     "scripts": {
         "start": "./node_modules/webpack/bin/webpack.js --mode production && tsc Typescript/server/index.ts && node Typescript/server/index.js",
         "dev": "webpack --watch --mode development",
-        "build": "webpack --watch --mode production",
+        "build": "webpack --mode production",
         "tsc": "tsc Typescript/server/index.ts -w",
         "server": "nodemon Typescript/server/index.js"
     },
