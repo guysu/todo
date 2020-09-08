@@ -4,7 +4,7 @@ import { Todo, NewTodo } from "../common/types";
 
 export const getAllUserTodos = async (userID: string) => {
     const allTodos = await DAO.getAllUserTodos(userID);
-    return allTodos;
+    return allTodos.sort((a, b) => (a.checked > b.checked ? 1 : -1));
 };
 
 export const createNewTodo = (userID: string, taskToAdd: NewTodo): Todo => {
