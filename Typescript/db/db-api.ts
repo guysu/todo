@@ -5,8 +5,6 @@ client.on("connect", function () {
 });
 import { promisify } from "util";
 
-// client.flushall(); // DELETE!!
-
 const hmgetAsync = promisify(client.hmget).bind(client);
 const hgetallAsync = promisify(client.hgetall).bind(client);
 

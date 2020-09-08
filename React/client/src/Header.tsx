@@ -1,24 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, ChangeEvent } from "react";
+
+type HeaderState = {
+    inputVal: string;
+};
 
 export class Header extends Component {
-    addTaskHandler = () => {
-        console.log("Hi");
+    state: HeaderState = {
+        inputVal: "",
     };
 
     render() {
-        return (
-            <div>
-                <h1>Welcome To The TODO List!</h1>
-                <input
-                    type="text"
-                    placeholder="Please enter a new tesk"
-                    className="add-task-input"
-                />
-                <button onClick={this.addTaskHandler} className="add-task-btn">
-                    Add
-                </button>
-            </div>
-        );
+        return <h1>Welcome To The TODO List!</h1>;
     }
 }
 

@@ -7,14 +7,6 @@ const getAddress = (taskID: string) => {
     return `${serverPrefix}/${taskID}`;
 };
 
-export const initialConnection = async () => {
-    try {
-        return await axios.get("/login");
-    } catch {
-        throw "Server Error";
-    }
-};
-
 export const getAllTodosFromServer = async () => {
     try {
         const res = await axios.get(serverPrefix);
