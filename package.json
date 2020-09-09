@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "npm start --prefix server && npm start --prefix React",
-        "build": "npm install --prefix common && npm install --prefix server && npm install --prefix React"
+        "preinstall": "npm install --prefix common && npm install --prefix server && npm install --prefix React"
     },
     "repository": {
         "type": "git",
