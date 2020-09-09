@@ -6,8 +6,7 @@
     "scripts": {
         "tsc": "tsc index.ts -w",
         "server": "nodemon index.js",
-        "start": "tsc index.ts && node index.js",
-        "initialize": "npm install"
+        "start": "tsc index.ts && node index.js"
     },
     "author": "",
     "license": "ISC",
