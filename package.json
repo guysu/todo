@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "tsc server/index.ts && node server/index.js && npm start --prefix React",
+        "start": "npm start --prefix React && npm start --prefix server",
         "preinstall": "npm install --prefix common && npm install --prefix server && npm install --prefix React"
     },
     "repository": {
