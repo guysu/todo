@@ -2,7 +2,7 @@ import "./style.scss";
 import { $ } from "./utils";
 import * as appCtrl from "./app.ctrl";
 import { getAllTodosFromServer } from "./server-api";
-import { Todo } from "../../common/types";
+import { Todo } from "../../../common/types";
 
 window.onload = () => {
     $("body")!.style.display = "block";

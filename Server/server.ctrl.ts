@@ -1,5 +1,5 @@
 const uuid = require("uuid");
-import * as DAO from "../db/db-api";
+import * as DAO from "./db-api";
 import { Todo, NewTodo } from "../common/types";
 
 export const getAllUserTodos = async (userID: string) => {

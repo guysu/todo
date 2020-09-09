@@ -2,4 +2,6 @@
 node_modules/
 bundle.*
 Typescript/**/*.js
-React/**/*.js
+React/client/*.js
+server/*.js
+common/*.js

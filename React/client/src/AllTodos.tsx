@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent } from "react";
 import SingleTodo from "./SingleTodo";
-import { Todo } from "../../common/types";
+import { Todo } from "../../../common/types";
 import InputBar from "./InputBar";
 import * as server from "./server-api";
 

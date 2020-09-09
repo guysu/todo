@@ -1,5 +1,5 @@
 import React, { Component, ChangeEvent } from "react";
-import { Todo } from "../../common/types";
+import { Todo } from "../../../common/types";
 
 type TodoProps = {
     task: Todo;

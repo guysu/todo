@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NewTodo } from "../../common/types";
+import { NewTodo } from "../../../common/types";
 
 const serverPrefix = "/todos";
 
