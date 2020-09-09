@@ -4,30 +4,29 @@ import { Todo } from "../../../common/types";
 import InputBar from "./InputBar";
 import * as server from "./server-api";
 
-type AllTodosState = {
-    Todos: Todo[];
+type TodoListState = {
+    todos: Todo[];
     inputVal: string;
 };
 
-export class AllTodos extends Component {
-    state: AllTodosState = {
-        Todos: [],
+export class TodoList extends Component {
+    state: TodoListState = {
+        todos: [],
         inputVal: "",
     };
 
     async componentDidMount() {
         const allTodosFromServer = await server.getAllTodosFromServer();
         this.setState({
-            Todos: allTodosFromServer,
+            todos: allTodosFromServer,
         });
     }
 
     addTaskHandler = async () => {
         const newTask = await server.addNewTaskToServer(this.state.inputVal);
-        let newTodos = [...this.state.Todos];
-        newTodos.unshift(newTask);
+        const newTodos = [newTask, ...this.state.todos];
         this.setState({
-            Todos: newTodos,
+            todos: newTodos,
             inputVal: "",
         });
     };
@@ -41,36 +40,36 @@ export class AllTodos extends Component {
 
     handleDelete = async (id: string) => {
         await server.deleteTaskFromServer(id);
-        const newTodos = [...this.state.Todos].filter((el) => el.id !== id);
+        const newTodos = [...this.state.todos].filter((el) => el.id !== id);
         this.setState({
-            Todos: newTodos,
+            todos: newTodos,
         });
     };
 
     handleCheck = async (id: string) => {
-        let newTodos = [...this.state.Todos];
+        let newTodos = [...this.state.todos];
         const taskIdx = newTodos.findIndex((el) => el.id === id);
         let newTask = newTodos.splice(taskIdx, 1)[0];
         newTask.checked = !newTask.checked;
         newTask.checked ? newTodos.push(newTask) : newTodos.unshift(newTask);
         await server.checkTaskInServer(id, newTask.checked);
         this.setState({
-            Todos: newTodos,
+            todos: newTodos,
         });
     };
 
     handleSave = async (id: string, newTitle: string) => {
-        let newTodos = [...this.state.Todos];
+        const newTodos = [...this.state.todos];
         const taskIdx = newTodos.findIndex((el) => el.id === id);
         newTodos[taskIdx].title = newTitle;
         await server.editTaskTitleInServer(id, newTitle);
         this.setState({
-            Todos: newTodos,
+            todos: newTodos,
         });
     };
 
     private showAllTodos(): React.ReactNode {
-        return this.state.Todos.map((task, index) => {
+        return this.state.todos.map((task, index) => {
             return (
                 <SingleTodo
                     task={task}
@@ -96,4 +95,4 @@ export class AllTodos extends Component {
     }
 }
 
-export default AllTodos;
+export default TodoList;

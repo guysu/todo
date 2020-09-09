@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.scss";
 import Header from "./Header";
-import AllTodos from "./AllTodos";
+import TodoList from "./TodoList";
 
 
 export class App extends Component {
@@ -9,7 +9,7 @@ export class App extends Component {
         return (
             <div>
                 <Header />
-                <AllTodos />
+                <TodoList />
             </div>
         );
     }
