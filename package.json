@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "npm start --prefix React && npm start --prefix server",
-        "build": "npm install --prefix common && npm install --prefix React && npm install --prefix server"
+        "start": "npm start --prefix server && npm start --prefix React",
+        "build": "npm install --prefix common && npm install --prefix server && npm install --prefix React"
     },
     "repository": {
         "type": "git",
