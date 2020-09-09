@@ -4,8 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "tsc": "tsc index.ts -w",
-      "server": "nodemon index.js"
+        "tsc": "tsc index.ts -w",
+        "server": "nodemon index.js",
+        "start": "npm install && tsc index.ts && node index.js"
     },
     "author": "",
     "license": "ISC",

@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "webpack --watch --mode development",
-        "build": "webpack --watch --mode production"
+        "build": "webpack --watch --mode production",
+        "start": "npm install && ./node_modules/webpack/bin/webpack.js --mode production"
     },
     "author": "",
     "license": "ISC",
