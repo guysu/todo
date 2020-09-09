@@ -16,19 +16,27 @@ export class TodoList extends Component {
     };
 
     async componentDidMount() {
-        const allTodosFromServer = await server.getAllTodosFromServer();
-        this.setState({
-            todos: allTodosFromServer,
-        });
+        try {
+            const allTodosFromServer = await server.getAllTodosFromServer();
+            this.setState({
+                todos: allTodosFromServer,
+            });
+        } catch {
+            alert("Could not get todos from server, please try again.");
+        }
     }
 
     addTaskHandler = async () => {
-        const newTask = await server.addNewTaskToServer(this.state.inputVal);
-        const newTodos = [newTask, ...this.state.todos];
-        this.setState({
-            todos: newTodos,
-            inputVal: "",
-        });
+        try {
+            const newTask = await server.addNewTaskToServer(this.state.inputVal);
+            const newTodos = [newTask, ...this.state.todos];
+            this.setState({
+                todos: newTodos,
+                inputVal: "",
+            });
+        } catch {
+            alert("Could not add task to server, please try again.");
+        }
     };
 
     changedInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +47,15 @@ export class TodoList extends Component {
     };
 
     handleDelete = async (id: string) => {
-        await server.deleteTaskFromServer(id);
-        const newTodos = [...this.state.todos].filter((el) => el.id !== id);
-        this.setState({
-            todos: newTodos,
-        });
+        try {
+            await server.deleteTaskFromServer(id);
+            const newTodos = [...this.state.todos].filter((el) => el.id !== id);
+            this.setState({
+                todos: newTodos,
+            });
+        } catch {
+            alert("Could not delete task from server, please try again.");
+        }
     };
 
     handleCheck = async (id: string) => {
@@ -52,20 +64,28 @@ export class TodoList extends Component {
         let newTask = newTodos.splice(taskIdx, 1)[0];
         newTask.checked = !newTask.checked;
         newTask.checked ? newTodos.push(newTask) : newTodos.unshift(newTask);
-        await server.checkTaskInServer(id, newTask.checked);
-        this.setState({
-            todos: newTodos,
-        });
+        try {
+            await server.checkTaskInServer(id, newTask.checked);
+            this.setState({
+                todos: newTodos,
+            });
+        } catch {
+            alert("Could not check task in server, please try again.");
+        }
     };
 
     handleSave = async (id: string, newTitle: string) => {
         const newTodos = [...this.state.todos];
         const taskIdx = newTodos.findIndex((el) => el.id === id);
         newTodos[taskIdx].title = newTitle;
-        await server.editTaskTitleInServer(id, newTitle);
-        this.setState({
-            todos: newTodos,
-        });
+        try {
+            await server.editTaskTitleInServer(id, newTitle);
+            this.setState({
+                todos: newTodos,
+            });
+        } catch {
+            alert("Could not edit task in server, plaese try again.");
+        }
     };
 
     private showAllTodos(): React.ReactNode {

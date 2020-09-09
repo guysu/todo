@@ -12,7 +12,7 @@ export const getAllTodosFromServer = async (): Promise<Todo[]> => {
         const res = await axios.get(serverPrefix);
         return res.data;
     } catch {
-        throw "Server Error";
+        throw "Unable to receive data";
     }
 };
 
@@ -22,23 +22,23 @@ export const addNewTaskToServer = async (textInput: string): Promise<Todo> => {
 };
 
 export const deleteTaskFromServer = async (taskID: string): Promise<void> => {
-    try {
-        await axios.delete(getAddress(taskID));
-    } catch {
-        throw "Server Error";
-    }
+    return axios.delete(getAddress(taskID));
 };
 
 export const checkTaskInServer = async (
     taskID: string,
     status: boolean
 ): Promise<void> => {
-    await axios.put(getAddress(taskID), { checked: status });
+    if ((await axios.put(getAddress(taskID), { checked: status })).status === 400) {
+        throw "Unable to check";
+    }
 };
 
 export const editTaskTitleInServer = async (
     taskID: string,
     newTitle: string
 ): Promise<void> => {
-    await axios.put(getAddress(taskID), { title: newTitle });
+    if ((await axios.put(getAddress(taskID), { title: newTitle })).status === 400) {
+        throw "Unable to edit";
+    }
 };
