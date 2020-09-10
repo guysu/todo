@@ -14,6 +14,7 @@ export const TodoEditMode = (props: EditModeProps) => {
                 type="text"
                 onChange={(e) => setInputState(e.target.value)}
                 value={inputState}
+                autoFocus
                 className="edit-input"
             />
             <button onClick={() => props.saveHandler(inputState)} className="save-btn">

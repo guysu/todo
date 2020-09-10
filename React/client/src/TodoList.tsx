@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import SingleTodo from "./SingleTodo";
 import { Todo } from "../../../common/types";
 import InputBar from "./InputBar";
@@ -9,110 +9,97 @@ type TodoListState = {
     inputVal: string;
 };
 
-export class TodoList extends Component {
-    state: TodoListState = {
-        todos: [],
-        inputVal: "",
-    };
+export const TodoList = () => {
+    const [todos, setTodos] = useState<Todo[]>([]);
+    const [inputVal, setInputVal] = useState("");
 
-    async componentDidMount() {
-        try {
-            const allTodosFromServer = await server.getAllTodosFromServer();
-            this.setState({
-                todos: allTodosFromServer,
-            });
-        } catch {
-            alert("Could not get todos from server, please try again.");
-        }
-    }
+    useEffect(() => {
+        const fetchTodos = async () => {
+            try {
+                const allTodosFromServer = await server.getAllTodosFromServer();
+                setTodos(allTodosFromServer);
+            } catch {
+                alert("Could not get todos from server, please try again.");
+            }
+        };
+        fetchTodos();
+    }, []);
 
-    addTaskHandler = async () => {
+    const addTaskHandler = async () => {
         try {
-            const newTask = await server.addNewTaskToServer(this.state.inputVal);
-            const newTodos = [newTask, ...this.state.todos];
-            this.setState({
-                todos: newTodos,
-                inputVal: "",
-            });
+            const newTask = await server.addNewTaskToServer(inputVal);
+            const newTodos = [newTask, ...todos];
+            setTodos(newTodos);
+            setInputVal("");
         } catch {
             alert("Could not add task to server, please try again.");
         }
     };
 
-    changedInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const changedInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const newVal = event.target.value;
-        this.setState({
-            inputVal: newVal,
-        });
+        setInputVal(newVal);
     };
 
-    handleDelete = async (id: string) => {
+    const handleDelete = async (id: string) => {
         try {
             await server.deleteTaskFromServer(id);
-            const newTodos = [...this.state.todos].filter((el) => el.id !== id);
-            this.setState({
-                todos: newTodos,
-            });
+            const newTodos = [...todos].filter((el) => el.id !== id);
+            setTodos(newTodos);
         } catch {
             alert("Could not delete task from server, please try again.");
         }
     };
 
-    handleCheck = async (id: string) => {
-        let newTodos = [...this.state.todos];
+    const handleCheck = async (id: string) => {
+        let newTodos = [...todos];
         const taskIdx = newTodos.findIndex((el) => el.id === id);
         let newTask = newTodos.splice(taskIdx, 1)[0];
         newTask.checked = !newTask.checked;
         newTask.checked ? newTodos.push(newTask) : newTodos.unshift(newTask);
         try {
             await server.checkTaskInServer(id, newTask.checked);
-            this.setState({
-                todos: newTodos,
-            });
+            setTodos(newTodos);
         } catch {
             alert("Could not check task in server, please try again.");
         }
     };
 
-    handleSave = async (id: string, newTitle: string) => {
-        const newTodos = [...this.state.todos];
+    const handleSave = async (id: string, newTitle: string) => {
+        const newTodos = [...todos];
         const taskIdx = newTodos.findIndex((el) => el.id === id);
         newTodos[taskIdx].title = newTitle;
         try {
             await server.editTaskTitleInServer(id, newTitle);
-            this.setState({
-                todos: newTodos,
-            });
+            setTodos(newTodos);
         } catch {
             alert("Could not edit task in server, plaese try again.");
         }
     };
 
-    private showAllTodos(): React.ReactNode {
-        return this.state.todos.map((task, index) => {
+    const showAllTodos = () => {
+        return todos.map((task, index) => {
             return (
                 <SingleTodo
                     task={task}
-                    handleDelete={this.handleDelete}
-                    handleCheck={this.handleCheck}
-                    handleSave={this.handleSave}
+                    handleDelete={handleDelete}
+                    handleCheck={handleCheck}
+                    handleSave={handleSave}
                 />
             );
         });
-    }
+    };
 
-    render() {
-        return (
-            <div>
-                <InputBar
-                    inputVal={this.state.inputVal}
-                    changedInputHandler={this.changedInputHandler}
-                    addTaskHandler={this.addTaskHandler}
-                />
-                {this.showAllTodos()}
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <InputBar
+                inputVal={inputVal}
+                changedInputHandler={changedInputHandler}
+                addTaskHandler={addTaskHandler}
+            />
+            {showAllTodos()}
+        </div>
+    );
+};
 
 export default TodoList;
