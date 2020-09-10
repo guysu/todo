@@ -4,11 +4,6 @@ import { Todo } from "../../../common/types";
 import InputBar from "./InputBar";
 import * as server from "./server-api";
 
-type TodoListState = {
-    todos: Todo[];
-    inputVal: string;
-};
-
 export const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [inputVal, setInputVal] = useState("");
