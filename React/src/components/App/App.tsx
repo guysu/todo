@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./style.scss";
-import Header from "./Header";
-import TodoList from "./TodoList";
-
+// import "../style.scss";
+import './App.scss';
+import Header from "../Header/Header";
+import TodoList from "../TodoList/TodoList";
 
 export class App extends Component {
     render() {

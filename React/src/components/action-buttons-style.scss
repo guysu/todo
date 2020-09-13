@@ -1,0 +1,15 @@
+@import '../style.scss';
+
+.action-btn {
+	font-size: large;
+	margin: 3px;
+	padding: 5px 15px;
+	background-color: map-get($map: $colors, $key: btn-background);
+	border-radius: 10px;
+	border: solid;
+	cursor: pointer;
+	border-color: map-get($map: $colors, $key: btn-border);
+	outline: none;
+	color: map-get($map: $colors, $key: btn-font-color);
+	font-weight: 550;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import './DeleteBtn.scss';
 
 type DeleteBtnProps = {
     taskId: string;

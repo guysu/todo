@@ -1,0 +1,19 @@
+@import "../../style.scss";
+
+.single-task {
+    display: flex;
+}
+
+.task-title {
+    flex: 1;
+    margin: 5px 15px;
+}
+
+.finished-task {
+    text-decoration-line: line-through;
+}
+
+.checkbox {
+    margin: auto;
+    transform: scale(1.3);
+}

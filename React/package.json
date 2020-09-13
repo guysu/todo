@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "webpack --watch --mode development",
         "build": "webpack --watch --mode production",
-        "start": "./node_modules/webpack/bin/webpack.js --mode production"
+        "start": "./node_modules/webpack/bin/webpack.js --mode production",
+        "test": "jest --watchAll"
     },
     "author": "",
     "license": "ISC",
@@ -31,5 +32,15 @@
         "webpack": "^4.44.1",
         "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.0"
+    },
+    "devDependencies": {
+        "@types/enzyme": "^3.10.6",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/jest": "^26.0.13",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.4",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^26.4.2",
+        "ts-jest": "^26.3.0"
     }
 }

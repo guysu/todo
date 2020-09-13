@@ -1,4 +1,5 @@
 import React from "react";
+import './EditBtn.scss';
 
 type EditBtnProps = {
     handleEdit: () => void;

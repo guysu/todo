@@ -1,0 +1,5 @@
+@import "../action-buttons-style.scss";
+
+.edit-btn {
+	@extend .action-btn
+}

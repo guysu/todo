@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './TodoEditMode.scss';
 
 type EditModeProps = {
     currTitle: string;

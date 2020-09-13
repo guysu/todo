@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import SingleTodo from "./SingleTodo";
-import { Todo } from "../../../common/types";
-import InputBar from "./InputBar";
-import * as server from "./server-api";
+import TodoComponent from "../TodoComponent/TodoComponent";
+import { Todo } from "../../../../common/types";
+import InputBar from "../InputBar/InputBar";
+import * as server from "../../services/server-api";
 
 export const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -75,7 +75,7 @@ export const TodoList = () => {
     const showAllTodos = () => {
         return todos.map((task, index) => {
             return (
-                <SingleTodo
+                <TodoComponent
                     task={task}
                     handleDelete={handleDelete}
                     handleCheck={handleCheck}

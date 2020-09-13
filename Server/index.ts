@@ -10,14 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 80;
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname + "/../React/client/public/")));
+app.use(express.static(path.join(__dirname + "/../React/dist/")));
 app.use(express.json());
 
 const getUserID = (req: Request): string => (req as userAuthRequest).userId;
 
 app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);
-    res.status(200).render(path.join(__dirname + "/../React/client/src/index.ejs"));
+    res.status(200).render(path.join(__dirname + "/../React/src/index.ejs"));
 });
 
 app.get("/todos", authenticateToken, async (req: Request, res: Response) => {

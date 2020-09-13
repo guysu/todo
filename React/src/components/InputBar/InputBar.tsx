@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import "./InputBar.scss";
 
 type InpurBarProps = {
     inputVal: string;

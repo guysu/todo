@@ -1,8 +1,9 @@
-import React, { Component, ChangeEvent } from "react";
-import { Todo } from "../../../common/types";
-import DeleteBtn from "./action-buttons/DeleteBtn";
-import EditBtn from "./action-buttons/EditBtn";
-import TodoEditMode from "./TodoEditMode";
+import React, { Component } from "react";
+import { Todo } from "../../../../common/types";
+import DeleteBtn from "../DeleteBtn/DeleteBtn";
+import EditBtn from "../EditBtn/EditBtn";
+import TodoEditMode from "../TodoEditMode/TodoEditMode";
+import "./TodoComponent.scss";
 
 type TodoProps = {
     task: Todo;
@@ -15,7 +16,7 @@ type TodoState = {
     inEditMode: boolean;
 };
 
-export class SingleTodo extends Component<TodoProps> {
+export class TodoComponent extends Component<TodoProps> {
     state: TodoState = {
         inEditMode: false,
     };
@@ -65,4 +66,4 @@ export class SingleTodo extends Component<TodoProps> {
     }
 }
 
-export default SingleTodo;
+export default TodoComponent;
