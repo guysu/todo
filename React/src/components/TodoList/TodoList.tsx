@@ -13,7 +13,8 @@ export const TodoList = () => {
             try {
                 const allTodosFromServer = await server.getAllTodosFromServer();
                 setTodos(allTodosFromServer);
-            } catch {
+            } catch (e) {
+                console.log(e.message);
                 alert("Could not get todos from server, please try again.");
             }
         };
@@ -26,7 +27,8 @@ export const TodoList = () => {
             const newTodos = [newTask, ...todos];
             setTodos(newTodos);
             setInputVal("");
-        } catch {
+        } catch (e) {
+            console.log(e.message);
             alert("Could not add task to server, please try again.");
         }
     };
@@ -41,7 +43,8 @@ export const TodoList = () => {
             await server.deleteTaskFromServer(id);
             const newTodos = [...todos].filter((el) => el.id !== id);
             setTodos(newTodos);
-        } catch {
+        } catch (e) {
+            console.log(e.message);
             alert("Could not delete task from server, please try again.");
         }
     };
@@ -55,7 +58,8 @@ export const TodoList = () => {
         try {
             await server.checkTaskInServer(id, newTask.checked);
             setTodos(newTodos);
-        } catch {
+        } catch (e) {
+            console.log(e.message);
             alert("Could not check task in server, please try again.");
         }
     };
@@ -67,7 +71,8 @@ export const TodoList = () => {
         try {
             await server.editTaskTitleInServer(id, newTitle);
             setTodos(newTodos);
-        } catch {
+        } catch (e) {
+            console.log(e.message);
             alert("Could not edit task in server, plaese try again.");
         }
     };

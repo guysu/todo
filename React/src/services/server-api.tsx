@@ -22,23 +22,19 @@ export const addNewTaskToServer = async (textInput: string): Promise<Todo> => {
 };
 
 export const deleteTaskFromServer = async (taskID: string): Promise<void> => {
-    return axios.delete(getAddress(taskID));
+    return await axios.delete(getAddress(taskID));
 };
 
 export const checkTaskInServer = async (
     taskID: string,
     status: boolean
 ): Promise<void> => {
-    if ((await axios.put(getAddress(taskID), { checked: status })).status === 400) {
-        throw "Unable to check";
-    }
+    return await axios.put(getAddress(taskID), { checked: status });
 };
 
 export const editTaskTitleInServer = async (
     taskID: string,
     newTitle: string
 ): Promise<void> => {
-    if ((await axios.put(getAddress(taskID), { title: newTitle })).status === 400) {
-        throw "Unable to edit";
-    }
+    return await axios.put(getAddress(taskID), { title: newTitle });
 };
