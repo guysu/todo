@@ -1,7 +1,7 @@
 import jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 import { Request, Response, NextFunction } from "express";
-import { userAuthRequest } from "../common/types";
+import { userAuthRequest } from "../../common/types";
 
 const secret = "WowWhatASecret";
 

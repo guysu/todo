@@ -1,4 +1,4 @@
-import { Todo } from "../common/types";
+import { Todo } from "../../common/types";
 const client = require("redis").createClient(process.env.REDIS_URL);
 client.on("connect", function () {
     console.log("Successfully connected");

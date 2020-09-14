@@ -3,21 +3,21 @@ import path = require("path");
 const cookieParser = require("cookie-parser");
 import * as ctrl from "./server.ctrl";
 import { Request, Response } from "express";
-import { Todo, NewTodo, userAuthRequest } from "../common/types";
+import { Todo, NewTodo, userAuthRequest } from "../../common/types";
 import { authenticateToken, createToken } from "./identity";
 
 const app = express();
 const PORT = process.env.PORT || 80;
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname + "/../React/dist/")));
+app.use(express.static(path.join(__dirname + "/../../React/dist/")));
 app.use(express.json());
 
 const getUserID = (req: Request): string => (req as userAuthRequest).userId;
 
 app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);
-    res.status(200).render(path.join(__dirname + "/../React/src/index.ejs"));
+    res.status(200).render(path.join(__dirname + "/../../React/src/index.ejs"));
 });
 
 app.get("/todos", authenticateToken, async (req: Request, res: Response) => {

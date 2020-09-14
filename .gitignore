@@ -3,5 +3,5 @@ node_modules/
 bundle.*
 Typescript/**/*.js
 React/client/*.js
-server/*.js
+server/src/*.js
 common/*.js
