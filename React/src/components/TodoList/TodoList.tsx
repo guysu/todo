@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import TodoComponent from "../TodoComponent/TodoComponent";
 import { Todo } from "../../../../common/types";
 import InputBar from "../InputBar/InputBar";
@@ -8,14 +8,14 @@ export const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [inputVal, setInputVal] = useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchTodos = async () => {
             try {
                 const allTodosFromServer = await server.getAllTodosFromServer();
                 setTodos(allTodosFromServer);
             } catch (e) {
-                console.log(e.message);
-                alert("Could not get todos from server, please try again.");
+                console.log("fetchTodos", e.message);
+                // alert("Could not get todos from server, please try again.");
             }
         };
         fetchTodos();
@@ -28,8 +28,8 @@ export const TodoList = () => {
             setTodos(newTodos);
             setInputVal("");
         } catch (e) {
-            console.log(e.message);
-            alert("Could not add task to server, please try again.");
+            console.log("addTaskHandler", e.message);
+            // alert("Could not add task to server, please try again.");
         }
     };
 
@@ -44,8 +44,8 @@ export const TodoList = () => {
             const newTodos = [...todos].filter((el) => el.id !== id);
             setTodos(newTodos);
         } catch (e) {
-            console.log(e.message);
-            alert("Could not delete task from server, please try again.");
+            console.log("handleDelete", e.message);
+            // alert("Could not delete task from server, please try again.");
         }
     };
 
@@ -59,8 +59,8 @@ export const TodoList = () => {
             await server.checkTaskInServer(id, newTask.checked);
             setTodos(newTodos);
         } catch (e) {
-            console.log(e.message);
-            alert("Could not check task in server, please try again.");
+            console.log("handleCheck", e.message);
+            // alert("Could not check task in server, please try again.");
         }
     };
 
@@ -72,8 +72,8 @@ export const TodoList = () => {
             await server.editTaskTitleInServer(id, newTitle);
             setTodos(newTodos);
         } catch (e) {
-            console.log(e.message);
-            alert("Could not edit task in server, plaese try again.");
+            console.log("handleSave", e.message);
+            // alert("Could not edit task in server, plaese try again.");
         }
     };
 
@@ -81,6 +81,7 @@ export const TodoList = () => {
         return todos.map((task, index) => {
             return (
                 <TodoComponent
+                    key={index}
                     task={task}
                     handleDelete={handleDelete}
                     handleCheck={handleCheck}

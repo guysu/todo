@@ -41,6 +41,8 @@
         "enzyme-adapter-react-16": "^1.15.4",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^26.4.2",
+        "jsdom": "16.4.0",
+        "jsdom-global": "3.0.2",
         "ts-jest": "^26.3.0"
     }
 }

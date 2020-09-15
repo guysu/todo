@@ -5,3 +5,4 @@ Typescript/**/*.js
 React/client/*.js
 server/src/*.js
 common/*.js
+React/*.html
