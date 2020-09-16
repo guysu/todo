@@ -45,7 +45,9 @@ export class TodoComponent extends Component<TodoProps> {
                     onChange={() => handleCheck(task.id)}
                     checked={task.checked}
                 />
-                <span className={clazz}>{task.title}</span>
+                <span className={clazz} data-hook="task-title">
+                    {task.title}
+                </span>
                 <EditBtn handleEdit={this.handleEdit} />
                 <DeleteBtn taskId={task.id} handleDelete={handleDelete} />
             </div>

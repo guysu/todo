@@ -11,8 +11,8 @@ export const getAllTodosFromServer = async (): Promise<Todo[]> => {
     try {
         const res = await axios.get(serverPrefix);
         return res.data;
-    } catch {
-        throw "Unable to receive data";
+    } catch (e) {
+        throw e;
     }
 };
 
