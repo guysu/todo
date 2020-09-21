@@ -126,9 +126,7 @@ describe("Testing <TodoList />", () => {
             await simulateClick(".save-btn");
         });
 
-        expect(
-            wrapper.contains(<span className="task-title ">Edited Task</span>)
-        ).toEqual(true);
+        expect(wrapper.find(`[data-hook="task-title"]`).text()).toEqual("Edited Task");
     });
 
     it("Should render one checked <TodoComponent /> from axios", async () => {

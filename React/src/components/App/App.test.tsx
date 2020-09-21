@@ -11,7 +11,7 @@ import puppeteer from "puppeteer";
 
 configure({ adapter: new Adapter() });
 
-describe("Testing <App />", () => {
+describe("Testing <App /> using Jest", () => {
     let wrapper: any;
 
     beforeEach(async () => {
@@ -32,31 +32,42 @@ describe("Testing <App />", () => {
     it("Should render one <TodoList />", async () => {
         expect(wrapper.find(TodoList).exists()).toEqual(true);
     });
+});
+
+describe("Testing <App /> using Puppeteer", () => {
+    let browser: puppeteer.Browser, page: puppeteer.Page;
+
+    beforeEach(async () => {
+        browser = await puppeteer.launch();
+        page = await browser.newPage();
+        await page.goto("http://localhost:3232");
+    });
+
+    afterEach(async () => {
+        await browser.close();
+    });
 
     it("Should render one task after adding", async () => {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.goto("http://localhost:80");
         await page.click(".add-task-input");
         await page.type(".add-task-input", "Testing");
         await page.click(".add-task-btn");
         await page.waitForSelector(`[data-hook="task-title"]`);
-        const singleTaskText = await page.$eval(`[data-hook="task-title"]`, (res) => res.textContent);
-        expect(singleTaskText).toEqual("Testing");
+        const singleTaskText = await page.$eval(
+            `[data-hook="task-title"]`,
+            (res) => res.textContent
+        );
 
-        browser.close();
+        expect(singleTaskText).toEqual("Testing");
     });
 
-    // it("Should render one task from server", async () => {
-    //     jest.spyOn(axios, "get").mockResolvedValue({
-    //         status: 200,
-    //         statusText: "OK",
-    //         data: [{ id: "123", title: "Test", checked: false }],
-    //     });
-    //     const browser = await puppeteer.launch({headless:false});
-    //     const page = await browser.newPage();
-    //     await page.goto("file:///Users/guysu/Desktop/react-apps/todo/React/src/index.ejs");
+    // it("Should render zero tasks after adding and deleting", async () => {
+    //     await page.click(".add-task-input");
+    //     await page.type(".add-task-input", "Testing");
+    //     await page.click(".add-task-btn");
+    //     await page.waitForSelector(`[data-hook="task-title"]`);
+    //     await page.click(".delete-btn");
+    //     const singleTaskText = await page.$eval(`[data-hook="task-title"]`, (res) => res);
 
-    //     browser.close();
-    // })
+    //     expect(singleTaskText).toBeUndefined();
+    // });
 });

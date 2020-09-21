@@ -1,10 +1,10 @@
 const uuid = require("uuid");
-import * as DAO from "./db-api";
+import {DAO} from './index';
 import { Todo, NewTodo } from "../../common/types";
 
 export const getAllUserTodos = async (userID: string) => {
     const allTodos = await DAO.getAllUserTodos(userID);
-    return allTodos.sort((a, b) => (a.checked > b.checked ? 1 : -1));
+    return allTodos.sort((a: Todo, b: Todo) => (a.checked > b.checked ? 1 : -1));
 };
 
 export const createNewTodo = (userID: string, taskToAdd: NewTodo): Todo => {

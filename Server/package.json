@@ -6,6 +6,7 @@
     "scripts": {
         "tsc": "tsc src/index.ts -w",
         "server": "nodemon src/index.js",
+        "server:prod": "NODE_ENV=production nodemon src/index.js",
         "start": "tsc src/index.ts && node src/index.js"
     },
     "author": "",

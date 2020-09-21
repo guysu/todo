@@ -5,9 +5,12 @@ import * as ctrl from "./server.ctrl";
 import { Request, Response } from "express";
 import { Todo, NewTodo, userAuthRequest } from "../../common/types";
 import { authenticateToken, createToken } from "./identity";
+import { getConfig } from "./config";
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 3232;
+
+export const DAO = getConfig(process.env.NODE_ENV === "production").dbApi;
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname + "/../../React/dist/")));
