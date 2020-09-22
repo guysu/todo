@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "dev": "webpack --watch --mode development",
-        "build": "webpack --watch --mode production",
+        "build": "webpack --mode production",
         "start": "./node_modules/webpack/bin/webpack.js --mode production",
-        "test": "jest --watchAll"
+        "test": "jest"
     },
     "author": "",
     "license": "ISC",

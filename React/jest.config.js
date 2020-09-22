@@ -1,6 +1,6 @@
 module.exports = {
     clearMocks: true,
-    roots: ["<rootDir>/src"],
+    roots: ["<rootDir>"],
     preset: "ts-jest",
     testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     testEnvironment: "node",
