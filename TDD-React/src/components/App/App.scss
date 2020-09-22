@@ -1,0 +1,10 @@
+@import "../../style.scss";
+
+body {
+    font-family: $font;
+    font-weight: 300;
+    font-size: x-large;
+    background-color: map-get($map: $colors, $key: primary-background);
+    width: 80%;
+    margin: auto;
+}

@@ -12,13 +12,18 @@ import TodoEditMode from "../TodoEditMode/TodoEditMode";
 configure({ adapter: new Adapter() });
 
 export const todoListDriver = async () => {
-	let wrapper: ReactWrapper;
+    let wrapper: ReactWrapper;
 
     const mockGet = (data: Todo[]) => {
-        jest.spyOn(axios, "get").mockResolvedValue({
-            status: 200,
-            statusText: "OK",
-            data,
+        jest.spyOn(axios, "get").mockImplementation((url) => {
+            if (url === "/todos") {
+                return Promise.resolve({
+                    status: 200,
+                    statusText: "OK",
+                    data,
+                });
+            }
+            return axios.get(url);
         });
     };
 
@@ -31,10 +36,15 @@ export const todoListDriver = async () => {
     };
 
     const mockPost = () => {
-        jest.spyOn(axios, "post").mockResolvedValue({
-            status: 200,
-            statusText: "OK",
-            data: [],
+        jest.spyOn(axios, "post").mockImplementation((url) => {
+            if (url === "/todos") {
+                return Promise.resolve({
+                    status: 200,
+                    statusText: "OK",
+                    data: [],
+                });
+            }
+            return axios.post(url);
         });
     };
 
@@ -55,8 +65,8 @@ export const todoListDriver = async () => {
                 wrapper = await mount(<TodoList />);
             });
             wrapper.update();
-		},
-		close: () => jest.clearAllMocks(),
+        },
+        close: () => jest.clearAllMocks(),
         countTasksNum: () => wrapper.find(TodoComponent).length,
         deleteTaskAt: async (loc: number) => {
             await simulateClick(".delete-btn", loc);
@@ -93,10 +103,10 @@ export const todoListDriver = async () => {
                 await simulateClick(".add-task-btn", 0);
             });
             wrapper.update();
-		},
-		spyOnAxiosDelete: () => jest.spyOn(axios, "delete"),
-		spyOnAxiosPut: () => jest.spyOn(axios, "put"),
-		spyOnAxiosPost: () => jest.spyOn(axios, "post"),
+        },
+        spyOnAxiosDelete: () => jest.spyOn(axios, "delete"),
+        spyOnAxiosPut: () => jest.spyOn(axios, "put"),
+        spyOnAxiosPost: () => jest.spyOn(axios, "post"),
     };
 };
 

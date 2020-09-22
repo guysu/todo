@@ -13,14 +13,14 @@ const PORT = process.env.PORT || 3232;
 export const DAO = getConfig(process.env.NODE_ENV === "production").dbApi;
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname + "/../../React/dist/")));
+app.use(express.static(path.join(__dirname + "/../../TDD-React/dist/")));
 app.use(express.json());
 
 const getUserID = (req: Request): string => (req as userAuthRequest).userId;
 
 app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);
-    res.status(200).render(path.join(__dirname + "/../../React/src/index.ejs"));
+    res.status(200).render(path.join(__dirname + "/../../TDD-React/src/index.ejs"));
 });
 
 app.get("/todos", authenticateToken, async (req: Request, res: Response) => {
