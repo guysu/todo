@@ -1,6 +1,6 @@
 import { appE2EDriver, AppE2EDriver } from "./App.e2e.driver";
 
-describe("Testing <App /> using Puppeteer", () => {
+describe.skip("Testing <App /> using Puppeteer", () => {
     let driver: AppE2EDriver;
 
     beforeEach(async () => {

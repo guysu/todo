@@ -4,6 +4,7 @@ import { configure, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import App from "./App";
 import { ReturnTypeAsync } from "../../../../common/types";
+import TodoList from '../TodoList/TodoList';
 
 configure({ adapter: new Adapter() });
 
@@ -11,11 +12,11 @@ export const appDriver = () => {
     let wrapper = mount(<App />);
 
     return {
-        isSingleHeaderExists: () => {
-            return wrapper.find(`[data-hook="Header"]`).length === 1;
+        getTitleText: () => {
+            return wrapper.find(`[data-hook="Header"]`).text();
         },
         isSingleTodoListExists: () => {
-            return wrapper.find(`[data-hook="TodoList"]`).length === 1;
+            return wrapper.find(TodoList).length === 1;
         },
     };
 };

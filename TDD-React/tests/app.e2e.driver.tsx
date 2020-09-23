@@ -10,13 +10,32 @@ export const appE2EDriver = async () => {
         close: async () => {
             browser.close();
         },
-        isSingleHeaderExists: async () => {
-            return (await page.$$eval(`[data-hook="Header"]`, (res) => res.length)) === 1;
+        getTitleText: async () => {
+            return await page.$eval(`[data-hook="Header"]`, (res) => res.textContent);
         },
         isSingleTodoListExists: async () => {
             return (
-                (await page.$$eval(`[data-hook="TodoList"]`, (res) => res.length)) === 1
+                (await page.$$eval(`[data-hook="task-title"]`, (res) => res.length)) === 1
             );
+        },
+        isCheckboxExists: async () => {
+            return (await page.$$eval(`[data-hook="checkbox"]`, (res) => res.length)) > 0;
+        },
+        isDeleteBtnExists: async () => {
+            return (
+                (await page.$$eval(`[data-hook="delete-btn"]`, (res) => res.length)) > 0
+            );
+        },
+        isEditBtnExists: async () => {
+            return (await page.$$eval(`[data-hook="edit-btn"]`, (res) => res.length)) > 0;
+        },
+        addTask: async (title: string) => {
+            await page.click(`[data-hook="add-task-input"]`);
+            await page.type(`[data-hook="add-task-input"]`, title);
+            await page.click(`[data-hook="add-task-btn"]`);
+        },
+        getFirstTaskTitle: async () => {
+            return await page.$eval(`[data-hook="task-title"]`, (res) => res.textContent);
         },
     };
 };

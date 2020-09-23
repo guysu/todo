@@ -7,11 +7,11 @@ describe("Testing <App/>", () => {
         driver = appDriver();
     });
 
-    it("Should render single <Header />", async () => {
-        expect(driver.isSingleHeaderExists()).toEqual(true);
+    it("Should show title", async () => {
+        expect(driver.getTitleText()).toEqual("Welcome To The TDD Todo List!");
 	});
 	
-	it("Should render single <TodoList />", async () => {
+	it("Should show todos list", async () => {
 		expect(driver.isSingleTodoListExists()).toEqual(true);
-	})
+	});
 });

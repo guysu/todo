@@ -1,4 +1,3 @@
-import { idText } from "typescript";
 import { appE2EDriver, AppE2EDriver } from "./app.e2e.driver";
 
 describe("Testing Todo E2E", () => {
@@ -12,11 +11,24 @@ describe("Testing Todo E2E", () => {
         await driver.close();
     });
 
-    it("Should render <Header />", async () => {
-        expect(await driver.isSingleHeaderExists()).toEqual(true);
+    it("Should show title", async () => {
+        expect(await driver.getTitleText()).toEqual("Welcome To The TDD Todo List!");
     });
 
-    it("Should renser <TodoList />", async () => {
-        expect(await driver.isSingleTodoListExists()).toEqual(true);
+    // it("Should show todos list", async () => {
+    //     expect(await driver.isSingleTodoListExists()).toEqual(true);
+    // });
+
+    // it("Should show single task with buttons and checkbox", async () => {
+    //     expect(await driver.isCheckboxExists()).toEqual(true);
+    //     expect(await driver.isDeleteBtnExists()).toEqual(true);
+    //     expect(await driver.isEditBtnExists()).toEqual(true);
+    // });
+
+    it('should support adding new task', async () => {
+        await driver.addTask("Testing");
+
+        expect(await driver.getFirstTaskTitle()).toEqual("Testing")
     })
+    
 });

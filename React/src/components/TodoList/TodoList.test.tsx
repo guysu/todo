@@ -17,53 +17,30 @@ describe("Testing <TodoList />", () => {
         driver = await todoListDriver();
     });
 
-    it("Should render zero <TodoComponent /> from axios", async () => {
+    it("Should render empty list", async () => {
         await driver.create(testItems.noItems);
 
         expect(driver.countTasksNum()).toBe(0);
     });
 
-    it("Should render one <TodoComponent /> from axios", async () => {
+    it("Should render list with one task", async () => {
         await driver.create(testItems.oneItem);
 
         expect(driver.countTasksNum()).toBe(1);
-    });
-
-    it("Should render zero <TodoComponent /> after delete", async () => {
-        await driver.create(testItems.oneItem);
-
-        await driver.deleteTaskAt(0);
-
-        expect(driver.countTasksNum()).toBe(0);
     });
 
     it("Should render one <TodoComponent /> after delete", async () => {
         await driver.create(testItems.twoItems);
+        expect(driver.countTasksNum()).toBe(2);
 
         await driver.deleteTaskAt(0);
 
         expect(driver.countTasksNum()).toBe(1);
     });
 
-    it("Should render one <TodoEditMode /> after edit", async () => {
+    it("Should support edit and save", async () => {
         await driver.create(testItems.oneItem);
-
-        await driver.enterEditModeAt(0);
-
-        expect(driver.countEditModeNum()).toBe(1);
-    });
-
-    it("Should render one <TodoComponent /> after edit and save", async () => {
-        await driver.create(testItems.oneItem);
-
-        await driver.enterEditModeAt(0);
-        await driver.changeTitleAndSaveAt("Edited Task", 0);
-
         expect(driver.countTasksNum()).toBe(1);
-    });
-
-    it("Should edit a single <TodoComponent />", async () => {
-        await driver.create(testItems.oneItem);
 
         await driver.enterEditModeAt(0);
         await driver.changeTitleAndSaveAt("Edited Task", 0);
@@ -71,30 +48,33 @@ describe("Testing <TodoList />", () => {
         expect(driver.getTaskTitleAt(0)).toEqual("Edited Task");
     });
 
-    it("Should render one checked <TodoComponent /> from axios", async () => {
+    it("Should show one checked task", async () => {
         await driver.create(testItems.oneItemChecked);
 
         expect(driver.countFinishedTasksNum()).toBe(1);
     });
 
-    it("Should render checked task when checking checkbox", async () => {
+    it("Should support checking checkbox", async () => {
         await driver.create(testItems.oneItem);
+        expect(driver.countTasksNum()).toBe(1);
 
         await driver.checkTaskAt(0);
 
         expect(driver.countFinishedTasksNum()).toBe(1);
     });
 
-    it("Should render unchecked task when unchecking checkbox", async () => {
+    it("Should support unchecking checkbox", async () => {
         await driver.create(testItems.oneItemChecked);
+        expect(driver.countTasksNum()).toBe(1);
 
         await driver.checkTaskAt(0);
 
         expect(driver.countFinishedTasksNum()).toBe(0);
     });
 
-    it("Should render one <TodoComponent /> when adding task", async () => {
+    it("Should support adding task", async () => {
         await driver.create(testItems.noItems);
+        expect(driver.countFinishedTasksNum()).toBe(0);
 
         await driver.addTask("Testing");
 
