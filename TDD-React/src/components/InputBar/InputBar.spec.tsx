@@ -18,7 +18,7 @@ describe('Testing <InputBat />', () => {
 		expect(driver.getInputValue()).toEqual('');
 	})
 
-	it('should support adding task with enter btn', () => {
+	it('should clear input value after adding task with enter btn', () => {
 		expect(driver.getInputValue()).toEqual('');
 
 		driver.insertTaskTitle("Testing");

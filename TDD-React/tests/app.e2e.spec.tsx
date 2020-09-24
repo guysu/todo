@@ -15,20 +15,36 @@ describe("Testing Todo E2E", () => {
         expect(await driver.getTitleText()).toEqual("Welcome To The TDD Todo List!");
     });
 
-    // it("Should show todos list", async () => {
-    //     expect(await driver.isSingleTodoListExists()).toEqual(true);
-    // });
-
-    // it("Should show single task with buttons and checkbox", async () => {
-    //     expect(await driver.isCheckboxExists()).toEqual(true);
-    //     expect(await driver.isDeleteBtnExists()).toEqual(true);
-    //     expect(await driver.isEditBtnExists()).toEqual(true);
-    // });
-
-    it('should support adding new task', async () => {
+    it("should support adding new task", async () => {
         await driver.addTask("Testing");
 
-        expect(await driver.getFirstTaskTitle()).toEqual("Testing")
-    })
-    
+        expect(await driver.getFirstTaskTitle()).toEqual("Testing");
+    });
+
+    it("should support deleting task", async () => {
+        await driver.addTask("Testing");
+        expect(await driver.getTasksNum()).toEqual(1);
+
+        await driver.deleteFirstTask();
+
+        expect(await driver.getTasksNum()).toEqual(0);
+    });
+
+    it("should support checking task", async () => {
+        await driver.addTask("Testing");
+        expect(await driver.getTasksNum()).toEqual(1);
+
+        await driver.checkFirstTask();
+
+        expect(await driver.isFirstTaskChecked()).toEqual(true);
+    });
+
+    it("should support editing task", async () => {
+        await driver.addTask("Testing");
+        expect(await driver.getFirstTaskTitle()).toEqual("Testing");
+
+        await driver.editFirstTask("Edited Task");
+
+        expect(await driver.getFirstTaskTitle()).toEqual("Edited Task");
+    });
 });

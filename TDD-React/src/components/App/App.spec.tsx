@@ -4,7 +4,7 @@ describe("Testing <App/>", () => {
     let driver: AppDriver;
 
     beforeEach(async () => {
-        driver = appDriver();
+        driver = await appDriver();
     });
 
     it("Should show title", async () => {

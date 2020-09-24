@@ -1,9 +1,17 @@
 import React from "react";
 import "./EditBtn.scss";
 
-const EditBtn = () => {
+type EditBtnProps = { editHandler: () => void };
+
+const EditBtn = (props: EditBtnProps) => {
     return (
-        <button data-hook="edit-btn" className="edit-btn">
+        <button
+            data-hook="edit-btn"
+            className="edit-btn"
+            onClick={() => {
+                props.editHandler();
+            }}
+        >
             Edit
         </button>
     );

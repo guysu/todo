@@ -1,0 +1,14 @@
+@import '../../style.scss';
+@import "../action-buttons-style.scss";
+
+.edit-input {
+	font-size: inherit;
+	margin-left: 27px;
+	margin-right: 40px;
+	padding: 8px 10px;
+	width: 40%;
+}
+
+.save-btn {
+	@extend .action-btn
+}
