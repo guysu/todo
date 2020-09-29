@@ -3,8 +3,8 @@ import path = require("path");
 const cookieParser = require("cookie-parser");
 import * as ctrl from "./server.ctrl";
 import { Request, Response } from "express";
-import { Todo, NewTodo, userAuthRequest } from "../../common/types";
-import { authenticateToken, createToken } from "./identity";
+import { Todo, NewTodo } from "../../common/types";
+import { authenticateToken, createToken, UserAuthRequest } from "./identity";
 import { getConfig } from "./config";
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname + "/../../TDD-React/dist/")));
 app.use(express.json());
 
-const getUserID = (req: Request): string => (req as userAuthRequest).userId;
+const getUserID = (req: Request): string => (req as UserAuthRequest).userId;
 
 app.get("/", async (req: Request, res: Response) => {
     await createToken(req, res);

@@ -1,7 +1,10 @@
 import jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 import { Request, Response, NextFunction } from "express";
-import { userAuthRequest } from "../../common/types";
+
+export interface UserAuthRequest extends Request {
+    userId: string;
+}
 
 const secret = "WowWhatASecret";
 
@@ -17,7 +20,7 @@ export const authenticateToken = async (
         if (err) {
             return res.sendStatus(403);
         }
-        (req as userAuthRequest).userId = user.userId;
+        (req as UserAuthRequest).userId = user.userId;
     });
     next();
 };
