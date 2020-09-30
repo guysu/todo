@@ -22,9 +22,9 @@ export const todoComponentDriver = () => {
     );
 
     return {
-        isCheckboxExists: () => wrapper.find(`[data-hook="checkbox"]`).exists(),
-        isDeleteBtnExists: () => wrapper.find(DeleteBtn).exists(),
-        isEditBtnExists: () => wrapper.find(EditBtn).exists(),
+        isCheckboxExists: () => wrapper.find(`[data-hook="checkbox"]`).length === 1,
+        isDeleteBtnExists: () => wrapper.find(DeleteBtn).length === 1,
+        isEditBtnExists: () => wrapper.find(EditBtn).length === 1,
         enterEditMode: () => wrapper.find('[data-hook="edit-btn"]').simulate("click"),
         isInEditMode: () => wrapper.find(TodoEditMode).length === 1,
     };

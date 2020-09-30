@@ -3,7 +3,6 @@ import InputBar from "../InputBar/InputBar";
 import TodoComponent from "../TodoComponent/TodoComponent";
 import { Todo } from "../../../../common/types";
 import * as server from "../../services/server-api";
-const uuid = require("uuid");
 
 type TodoListState = {
     todos: Todo[];

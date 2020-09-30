@@ -9,6 +9,8 @@ type TodoEditModeProps = {
 const TodoEditMode = (props: TodoEditModeProps) => {
     const [inputVal, setInputVal] = useState(props.taskTitle);
 
+    const { saveHandler } = props;
+
     return (
         <div>
             <input
@@ -17,16 +19,12 @@ const TodoEditMode = (props: TodoEditModeProps) => {
                 onChange={(e) => setInputVal(e.target.value)}
                 value={inputVal}
                 autoFocus
-                onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                        props.saveHandler(inputVal);
-                    }
-                }}
+                onKeyPress={(e) => (e.key === "Enter" ? saveHandler(inputVal) : null)}
             />
             <button
                 className="save-btn"
                 data-hook="save-btn"
-                onClick={() => props.saveHandler(inputVal)}
+                onClick={() => saveHandler(inputVal)}
             >
                 Save
             </button>

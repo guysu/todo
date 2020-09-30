@@ -40,7 +40,7 @@ export const TodoComponent = (props: TodoComponentProps) => {
                 />
                 <span
                     data-hook="task-title"
-                    className={`task-title ${task.checked ? "finished-task" : ''}`}
+                    className={`task-title${task.checked ? " finished-task" : ''}`}
                 >
                     {task.title}
                 </span>

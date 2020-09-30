@@ -19,11 +19,7 @@ const InputBar = (props: InputBarProps) => {
                 className="add-task-input"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
-                onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                        handleAddBtnPress();
-                    }
-                }}
+                onKeyPress={(e) => (e.key === "Enter" ? handleAddBtnPress() : null)}
             />
             <button
                 data-hook="add-task-btn"
