@@ -78,10 +78,10 @@ export const todoListDriver = async () => {
             wrapper.update();
         },
         isInputFieldExists: () => {
-            return wrapper.find(`[data-hook="add-task-input"]`).exists();
+            return wrapper.find(`[data-hook="add-task-input"]`).length === 1;
         },
         isAddBtnExists: () => {
-            return wrapper.find(`[data-hook="add-task-btn"]`).exists();
+            return wrapper.find(`[data-hook="add-task-btn"]`).length === 1;
         },
         getTasksNum: () => wrapper.find(TodoComponent).length,
         addTaskFromState: (title: string) => {

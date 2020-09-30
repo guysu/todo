@@ -1,4 +1,5 @@
 import { todoListDriver, TodoListDriver } from "./TodoList.driver";
+import axios from "axios";
 
 const testItems = {
     noItems: [],
@@ -100,7 +101,7 @@ describe("Testing <TodoList /> with server", () => {
         expect(axiosPut).toHaveBeenCalledWith("/todos/123", { checked: false });
     });
 
-    it('should support edit todo', async () => {
+    it("should support edit todo", async () => {
         await driver.create(testItems.oneItem);
         expect(driver.getTasksNum()).toEqual(1);
         const axiosPut = driver.spyOnPut();
@@ -108,7 +109,7 @@ describe("Testing <TodoList /> with server", () => {
         await driver.editTaskAt(0, "Edited Task");
 
         expect(driver.getTaskTitleAt(0)).toEqual("Edited Task");
-        expect(axiosPut).toHaveBeenCalledWith("/todos/123", { title: "Edited Task" })
-    })
-    
+        expect(axiosPut).toHaveBeenCalledWith("/todos/123", { title: "Edited Task" });
+    });
+
 });
